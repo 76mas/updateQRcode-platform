@@ -31,7 +31,7 @@ const stepAlerts = [
 
 const steps = [1, 2, 3,4]
 
-const StepContent = ({ currentStep }) => { // 1. استقبل currentStep كـ prop
+const StepContent = ({ currentStep }) => { 
   switch (currentStep) {
     case 1:
       return <NameOfEvents />
