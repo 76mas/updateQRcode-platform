@@ -16,12 +16,117 @@ import PricingCard from "@/app/components/PriceingCard";
 import { useEffect } from "react";
 import { auth } from "@/app/firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
+import { ExplainSteps } from "@/components/explansteps";
+
 
 
 
 
 export default function Home() {
-  
+//  const testimonials = [
+//     {
+//       quote:
+//         "The attention to detail and innovative features have completely transformed our workflow. This is exactly what we've been looking for.",
+//       name: "Sarah Chen",
+//       designation: "Product Manager at TechFlow",
+//       src: "/stepimage/1s.png",
+//     },
+//     {
+//       quote:
+//         "Implementation was seamless and the results exceeded our expectations. The platform's flexibility is remarkable.",
+//       name: "Michael Rodriguez",
+//       designation: "CTO at InnovateSphere",
+//       src: "/stepimage/2s.png",
+//     },
+//     {
+//       quote:
+//         "This solution has significantly improved our team's productivity. The intuitive interface makes complex tasks simple.",
+//       name: "Emily Watson",
+//       designation: "Operations Director at CloudScale",
+//   src: "/stepimage/3s.png",
+//     },
+//     {
+//       quote:
+//         "Outstanding support and robust features. It's rare to find a product that delivers on all its promises.",
+//       name: "James Kim",
+//       designation: "Engineering Lead at DataPro",
+//   src: "/stepimage/4s.png",
+//     },
+//     {
+//       quote:
+//         "The scalability and performance have been game-changing for our organization. Highly recommend to any growing business.",
+//       name: "Lisa Thompson",
+//       designation: "VP of Technology at FutureNet",
+//   src: "/stepimage/5s.png",
+//     },
+//   ];  
+
+// const steps = [
+//   {
+//     quote: "Step 1: Enter the event name and date. This sets up the basic information for all invitations.",
+//     name: "Step 1",
+//     designation: "Event Info",
+//     src: "/stepimage/1s.png",
+//   },
+//   {
+//     quote: "Step 2: Upload the Excel file containing each guest's name and email. The platform will use this to personalize invitations.",
+//     name: "Step 2",
+//     designation: "Upload Excel",
+//     src: "/stepimage/2s.png",
+//   },
+//   {
+//     quote: "Step 3: Upload the invitation or design image. Ensure it is high quality and matches the theme of your event.",
+//     name: "Step 3",
+//     designation: "Upload Design",
+//     src: "/stepimage/3s.png",
+//   },
+//   {
+//     quote: "Step 4: Place boxes on the design to map each guest's name and QR code. Adjust the font color, size, and position. Save and submit the layout.",
+//     name: "Step 4",
+//     designation: "Customize Layout",
+//     src: "/stepimage/4s.png",
+//   },
+//   {
+//     quote: "Step 5: Download the final file (ZIP) containing all personalized invitations ready to share or print.",
+//     name: "Step 5",
+//     designation: "Download ZIP",
+//     src: "/stepimage/5s.png",
+//   },
+// ];
+
+const steps = [
+  {
+    quote: "Enter the event name and date. This sets up the basic information for all invitations.",
+    name: "Event Info",
+    designation: "Step 1",
+    src: "/stepimage/1s.png",
+  },
+  {
+    quote: "Upload the Excel file containing each guest's name and email. The platform will use this to personalize invitations.",
+    name: "Upload Excel",
+    designation: "Step 2",
+    src: "/stepimage/2s.png",
+  },
+  {
+    quote: "Upload the invitation or design image. Ensure it is high quality and matches the theme of your event.",
+    name: "Upload Design",
+    designation: "Step 3",
+    src: "/stepimage/3s.png",
+  },
+  {
+    quote: "Place boxes on the design to map each guest's name and QR code. Adjust the font color, size, and position. Save and submit the layout.",
+    name: "Customize Layout",
+    designation: "Step 4",
+    src: "/stepimage/4s.png",
+  },
+  {
+    quote: "Download the final file (ZIP) containing all personalized invitations ready to share or print.",
+    name: "Download ZIP",
+    designation: "Step 5",
+    src: "/stepimage/5s.png",
+  },
+];
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -72,7 +177,7 @@ export default function Home() {
 
 {/* سكسشن الاسئلة */}
     <section id="questions" className="w-full py-20 px-4 ">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 mb-20 items-start">
        
         <div>
      
@@ -109,8 +214,33 @@ export default function Home() {
               />
         </div>
       </div>
+
+
+   
     </section>
 {/* سكسشن الاسئلة */}
+
+<section className="w-full py-20 px-4 ">
+
+    <div className="text-center w-full flex flex-col justify-center items-center mb-16">
+          <div className="block bg-[#ffffff0c] w-fit backdrop-blur-3xl border border-gray-500 text-gray-300 px-3 py-1 rounded-full text-sm mb-6">
+            Premium
+          </div>
+          {/* <h1 className="text-5xl font-bold mb-6">Unlock Advanced Invitation Tools</h1> */}
+                  <ShinyText text="Create Perfect Invitations in Minutes" disabled={false} speed={10} className='custom-class font-bold text-2xl md:text-5xl lg:text-5xl ' />
+
+          <p className="text-gray-600 text-lg">
+            Smart tools to automate guest management, personalize designs, and generate QR-coded invitations effortlessly.
+          </p>
+           <p className="text-gray-600 text-lg">
+              Save time, impress your guests, and handle your event like a pro.
+            </p>
+        </div>
+
+   <ExplainSteps testimonials={steps} />
+
+</section>
+
 
 
 {/* سكشن ال features */}

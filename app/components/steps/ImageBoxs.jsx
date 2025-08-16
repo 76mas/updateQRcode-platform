@@ -215,8 +215,9 @@ export default function ImageWithBoxes() {
 
           <button
             onClick={handelSave}
-            className={`h-10 text-[13px] p-1 flex justify-center items-center gap-2 cursor-pointer ${isChanged?"bg-[#007517] hover:bg-[#006517]":"bg-[#0a3e14] hover:bg-[#0a3e14]"}  w-[100px] rounded-xl`}
-          >
+            className={`h-10 text-[13px] p-1 flex justify-center items-center gap-2 ${isChanged?"bg-[#007517] cursor-pointer  hover:bg-[#006517]":"bg-[#0a3e14] hover:bg-[#0a3e14]"}  w-[100px] rounded-xl`}
+            disabled={!isChanged}
+         >
          {isChanged?"Save":<><FaRegCheckCircle /> <span>Saved</span> </>}
           </button>
         </div>

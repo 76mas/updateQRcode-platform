@@ -76,34 +76,7 @@ function DropDownLogout({ url ,name,email}) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
 
-        {/* <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <BoltIcon size={16} className="opacity-60" aria-hidden="true" />
-            <span>Option 1</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Layers2Icon size={16} className="opacity-60" aria-hidden="true" />
-            <span>Option 2</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <BookOpenIcon size={16} className="opacity-60" aria-hidden="true" />
-            <span>Option 3</span>
-          </DropdownMenuItem>
-        </DropdownMenuGroup> */}
-
-
-        {/* <DropdownMenuSeparator /> */}
-        {/* <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <PinIcon size={16} className="opacity-60" aria-hidden="true" />
-            <span>Option 4</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <UserPenIcon size={16} className="opacity-60" aria-hidden="true" />
-            <span>Option 5</span>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator /> */}
+      
         <DropdownMenuItem className="cursor-pointer"  onClick={handleLogout}>
           <LogOutIcon size={16} className="opacity-60 cursor-pointer" aria-hidden="true"  />
           <span  className="cursor-pointer"  >Logout</span>
@@ -162,8 +135,10 @@ export default function NavBar() {
 
 
                       : 
-                      
-                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf1fiSQO7JfDw0uv1Ae_Ye-Bo9nhGNg27dwg&s" alt="Default avatar"      className="w-11 h-11 rounded-full border border-white/30 shadow-sm"/>
+                        // <DropDownLogout url={} email={userinfo.email} name={userinfo.name}/>
+
+                        <DropDownLogout url={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf1fiSQO7JfDw0uv1Ae_Ye-Bo9nhGNg27dwg&s"}email={userinfo.email} name={userinfo.name}/>
+                      // <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf1fiSQO7JfDw0uv1Ae_Ye-Bo9nhGNg27dwg&s" alt="Default avatar"      className="w-11 h-11 rounded-full border border-white/30 shadow-sm"/>
                     
                     
                     
@@ -252,9 +227,22 @@ export default function NavBar() {
                 <div className="flex flex-col p-2 items-start">
                
 
-                {userinfo.imgUrl 
-                      ? <img src={userinfo.imgUrl} alt="User"     className="w-11 h-11 rounded-full border border-white/30 shadow-sm" /> 
-                      : <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf1fiSQO7JfDw0uv1Ae_Ye-Bo9nhGNg27dwg&s" alt="Default avatar"      className="w-11 h-11 rounded-full border border-white/30 shadow-sm"/>
+               {userinfo.imgUrl 
+                      ? 
+                      
+                      <DropDownLogout url={userinfo.imgUrl} email={userinfo.email} name={userinfo.name}/>
+                      
+                      // <img src={userinfo.imgUrl} alt="User"     className="w-11 h-11 rounded-full border border-white/30 shadow-sm" /> 
+
+
+                      : 
+                        // <DropDownLogout url={} email={userinfo.email} name={userinfo.name}/>
+
+                        <DropDownLogout url={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf1fiSQO7JfDw0uv1Ae_Ye-Bo9nhGNg27dwg&s"}email={userinfo.email} name={userinfo.name}/>
+                      // <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf1fiSQO7JfDw0uv1Ae_Ye-Bo9nhGNg27dwg&s" alt="Default avatar"      className="w-11 h-11 rounded-full border border-white/30 shadow-sm"/>
+                    
+                    
+                    
                     }
                 </div>
 

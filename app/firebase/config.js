@@ -1,23 +1,20 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { initializeApp, getApps } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCwsXbxYZC2T1EtD0uUrWwjyx5o8wHSotE",
-  authDomain: "qrplatform-1d636.firebaseapp.com",
-  projectId: "qrplatform-1d636",
-  storageBucket: "qrplatform-1d636.firebasestorage.app",
-  messagingSenderId: "457044682082",
-  appId: "1:457044682082:web:7418222731c604f41cf83b",
-  measurementId: "G-GY2N3JW0YT",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const app = initializeApp(firebaseConfig);
+const firebaseApp = !getApps().length
+  ? initializeApp(firebaseConfig)
+  : getApps()[0];
 
-export const auth = getAuth(app);
+export const auth = getAuth(firebaseApp);
 export const googleProvider = new GoogleAuthProvider();
+export { firebaseApp };

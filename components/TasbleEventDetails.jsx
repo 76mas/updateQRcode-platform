@@ -217,6 +217,8 @@ export default function TasbleEventDetails({url}) {
   ])
 
   const [data, setData] = useState([])
+
+  
   useEffect(() => {
     const fetchdata=async()=>{
       console.log(url)
@@ -225,14 +227,11 @@ export default function TasbleEventDetails({url}) {
         return
 
       try{
-        const response=await axios.get(url
-              
-      
-      )
+        const response=await axios.get(url)
         
         setData(response.data.attendees || [])
         seteventinfo(response.data);
-        console.log(response.data)
+        console.log("ttttttttttttt",response.data)
       }
       catch(error){
         console.log(error);
@@ -385,7 +384,7 @@ export default function TasbleEventDetails({url}) {
                 {/* Status Filter */}
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" className="bg-gray-800 border-gray-700 text-gray-100 hover:bg-gray-700">
+                    <Button variant="outline" className="bg-gray-800 cursor-pointer border-gray-700 text-gray-100 hover:bg-gray-700">
                       <FilterIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
                       <span className="hidden sm:inline">Status</span>
                       {selectedStatuses.length > 0 && (
@@ -395,7 +394,7 @@ export default function TasbleEventDetails({url}) {
                       )}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto min-w-36 p-3 bg-gray-800 border-gray-700" align="start">
+                  <PopoverContent className="w-auto min-w-36 p-3 bg-gray-800 cursor-pointer border-gray-700" align="start">
                     <div className="space-y-3">
                       <div className="text-gray-400 text-xs font-medium">Filters</div>
                       <div className="space-y-3">
@@ -426,7 +425,7 @@ export default function TasbleEventDetails({url}) {
                 {/* Column Visibility */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="bg-gray-800 border-gray-700 text-gray-100 hover:bg-gray-700">
+                    <Button variant="outline" className="bg-gray-800 border-gray-700 cursor-pointer text-gray-100 hover:bg-gray-700">
                       <Columns3Icon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
                       <span className="hidden sm:inline">View</span>
                     </Button>
@@ -457,7 +456,7 @@ export default function TasbleEventDetails({url}) {
             {table.getSelectedRowModel().rows.length > 0 && (
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button className="bg-red-600 hover:bg-red-700 border-red-600 text-white" variant="outline">
+                  <Button className="bg-red-600 cursor-pointer hover:bg-red-700 border-red-600 text-white" variant="outline">
                     <TrashIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
                     <span className="hidden sm:inline">Delete</span>
                     <span className="bg-red-700 text-red-100 -me-1 inline-flex h-5 items-center rounded border border-red-600 px-1 text-xs">
@@ -467,7 +466,7 @@ export default function TasbleEventDetails({url}) {
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-gray-800 border-gray-700">
                   <div className="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4">
-                    <div className="flex size-9 shrink-0 items-center justify-center rounded-full border border-orange-500 bg-orange-500/20">
+                    <div className="flex size-9 shrink-0 items-center justify-center rounded-full border cursor-pointer border-orange-500 bg-orange-500/20">
                       <CircleAlertIcon className="opacity-80 text-orange-400" size={16} />
                     </div>
                     <AlertDialogHeader>
@@ -482,10 +481,10 @@ export default function TasbleEventDetails({url}) {
                     </AlertDialogHeader>
                   </div>
                   <AlertDialogFooter>
-                    <AlertDialogCancel className="bg-gray-700 border-gray-600 text-gray-200 hover:bg-gray-600">
+                    <AlertDialogCancel className="bg-gray-700 border-gray-600 cursor-pointer text-gray-200 hover:bg-gray-600">
                       Cancel
                     </AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDeleteRows} className="bg-red-600 hover:bg-red-700 text-white">
+                    <AlertDialogAction onClick={handleDeleteRows} className="bg-red-600 cursor-pointer hover:bg-red-700 text-white">
                       Delete
                     </AlertDialogAction>
                   </AlertDialogFooter>
@@ -577,10 +576,10 @@ export default function TasbleEventDetails({url}) {
               onValueChange={(value) => {
                 table.setPageSize(Number(value))
               }}>
-              <SelectTrigger id={id} className="w-20 bg-gray-800 border-gray-700 text-gray-200">
+              <SelectTrigger id={id} className="w-20 bg-gray-800 cursor-pointer border-gray-700 text-gray-200">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-gray-800 border-gray-700">
+              <SelectContent className="bg-gray-800 cursor-pointer border-gray-700">
                 {[5, 10, 25, 50].map((pageSize) => (
                   <SelectItem key={pageSize} value={pageSize.toString()} className="text-gray-200 focus:bg-gray-700">
                     {pageSize}
@@ -611,7 +610,7 @@ export default function TasbleEventDetails({url}) {
                 <Button
                   size="icon"
                   variant="outline"
-                  className="bg-gray-800 border-gray-700 text-gray-200 hover:bg-gray-700 disabled:opacity-50"
+                  className="bg-gray-800 border-gray-700 cursor-pointer text-gray-200 hover:bg-gray-700 disabled:opacity-50"
                   onClick={() => table.firstPage()}
                   disabled={!table.getCanPreviousPage()}>
                   <ChevronFirstIcon size={16} />
@@ -621,7 +620,7 @@ export default function TasbleEventDetails({url}) {
                 <Button
                   size="icon"
                   variant="outline"
-                  className="bg-gray-800 border-gray-700 text-gray-200 hover:bg-gray-700 disabled:opacity-50"
+                  className="bg-gray-800 border-gray-700 cursor-pointer text-gray-200 hover:bg-gray-700 disabled:opacity-50"
                   onClick={() => table.previousPage()}
                   disabled={!table.getCanPreviousPage()}>
                   <ChevronLeftIcon size={16} />
@@ -631,7 +630,7 @@ export default function TasbleEventDetails({url}) {
                 <Button
                   size="icon"
                   variant="outline"
-                  className="bg-gray-800 border-gray-700 text-gray-200 hover:bg-gray-700 disabled:opacity-50"
+                  className="bg-gray-800 cursor-pointer border-gray-700 text-gray-200 hover:bg-gray-700 disabled:opacity-50"
                   onClick={() => table.nextPage()}
                   disabled={!table.getCanNextPage()}>
                   <ChevronRightIcon size={16} />
@@ -641,7 +640,7 @@ export default function TasbleEventDetails({url}) {
                 <Button
                   size="icon"
                   variant="outline"
-                  className="bg-gray-800 border-gray-700 text-gray-200 hover:bg-gray-700 disabled:opacity-50"
+                  className="bg-gray-800 cursor-pointer border-gray-700 text-gray-200 hover:bg-gray-700 disabled:opacity-50"
                   onClick={() => table.lastPage()}
                   disabled={!table.getCanNextPage()}>
                   <ChevronLastIcon size={16} />

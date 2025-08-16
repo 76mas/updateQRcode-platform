@@ -27,6 +27,7 @@ import { useReloadTemplate } from "@/app/(dashboard)/context/reloadTempleat";
 
 export default function Addcollaborator({id}) {
   const {addItem,setAddItem}=useReloadTemplate();
+  const [isValid, setIsValid] = useState(false);
   const [open,setOpen]=useState(false);
   const [emails, setEmails] = useState([""])
 console.log(id)
@@ -60,9 +61,14 @@ console.log(id)
 }
 
 
-useEffect(()=>{
-  senddata();
-},[invitData])
+
+
+useEffect(() => {
+  const valid = invitData.every(item => 
+    item.email.trim() !== "" && item.role.trim() !== ""
+  );
+  setIsValid(valid);
+}, [invitData]);
 
 const handelAddInvitemember = async () => {
   setloding(true);

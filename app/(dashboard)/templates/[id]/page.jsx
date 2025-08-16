@@ -6,7 +6,9 @@ import { auth } from "@/app/firebase/config";
 import TasbleEventDetails from "@/components/TasbleEventDetails";
 import TableCollaborators from "@/components/tableCollaborator";
 import Link from "next/link";
-
+import { DirectionAwareHover } from "@/components/details";
+import { useAuth } from "../../context/authLogin";
+import { AnimatedTooltip } from "@/components/collaborator";
 
 const baseApiUrl = "https://mk25szk5-7093.inc1.devtunnels.ms";
 
@@ -39,8 +41,11 @@ const EnhancedCameraButton = () => {
 
   const handleClick = () => {
     console.log("Camera button clicked!");
-    // يمكنك إضافة منطق التصوير هنا
+ 
   };
+
+
+
 
   return (
     <div className="relative">
@@ -114,44 +119,76 @@ const EnhancedCameraButton = () => {
 
 
 const EventDetails = () => {
-    // const [EventInfo, setEventInfo] = useState([]);
-    const { id } = useParams()
 
-    // useEffect(() => {
-    //     const GetEventDetails = async () => {
-    //         try {
-    //             console.log(id)
-    //             const response = await axios.get(`${baseApiUrl}/api/event/${id}`, {
-    //                 // headers: {
-    //                 //     'Authorization': `Bearer ${localStorage.getItem("token")}`
-    //                 // }
-    //             })
-    //             console.log("peratn", response.data)
-    //             setEventInfo(response.data);
-    //         }
-    //         catch (error) {
-    //             console.log("error her", error);
-    //         }
-    //     }
-    //     GetEventDetails();
-    // }, [])
+    const { id } = useParams()
+  let [people,setPeople]=useState([{}]);
+  const { isSyncedWithBackend } = useAuth();
+    // const [imgUrl,setimageUrl]=useState("");
+    const [details,setdetails]=useState({});
+    
+  useEffect(() => {
+    const fetchdata=async()=>{
+   
+        
+      if(!isSyncedWithBackend)
+        return
+
+      try{
+        const response=await axios.get(`${baseApiUrl}/api/event/${id}`)
+        
+   
+      
+        // console.log("ttttttttttttt",response.data.backgroundImageUri)
+        setdetails(response.data)
+        // setimageUrl(response.data.backgroundImageUri)
+
+      }
+      catch(error){
+        console.log(error);
+      }
+    }
+
+
+      fetchdata();
+   
+  }, [isSyncedWithBackend])
+
+
 
     return (
         <div className="w-full min-h-screen">
-            <div className="max-w-full mx-auto py-10">
+            <div className="max-w-[95%] mx-auto py-10">
            
                 <div className="flex flex-col gap-8">
                     
-                  
+                     
+                    <div className="w-full flex flex-col  lg:flex-row md:flex-row justify-around h-[99%]  gap-2 mt-10">
+                      
+                      
+                    
+                    
+                    <div className="flex flex-col mt-3 items-center justify-center gap-6">
+                         <DirectionAwareHover  imageUrl={details.backgroundImageUri}>
+                            <p className="font-bold text-xl">{details.name}</p>
+                            <p className="font-normal text-sm">{details.eventDate}</p>
+                        </DirectionAwareHover>
+
+                              <div className="flex flex-row items-center justify-center mt-10 w-full">
+                                  <AnimatedTooltip items={people} />
+                              </div>
+                    </div>
+                     
+
+                      <TableCollaborators setPeople={setPeople} url={`${baseApiUrl}/api/event/${id}/getteam`} urlRole={`${baseApiUrl}/api/event/${id}`}/>
+
+
+                    </div>
+                    
                     <div className="w-full">
                         <TasbleEventDetails url={`${baseApiUrl}/api/event/${id}`} />
                     </div>
                     
-                  
-                    <div className="w-full max-w-4xl mx-auto px-4">
-                        <TableCollaborators  url={`${baseApiUrl}/api/event/${id}/getteam`} urlRole={`${baseApiUrl}/api/event/${id}`}/>
-                    </div>
-                    
+               
                   
                 </div>
             </div>

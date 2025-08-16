@@ -88,7 +88,7 @@ export default function EditRole({setRole,Role,setSendRole,open,setOpen,loding,s
               <div
                 className="border-gray-600 cursor-pointer has-data-[state=checked]:border-blue-500/50 has-data-[state=checked]:bg-gray-700 relative flex w-full items-center gap-2 rounded-md border px-4 py-3 shadow-xs outline-none bg-gray-750 hover:bg-gray-700">
                 <RadioGroupItem
-                  value="Check-In Staff"
+                   value="Check-In Staff"
                   id={`${id}-3`}
                   
                   aria-describedby={`${id}-3-description`}

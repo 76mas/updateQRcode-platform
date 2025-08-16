@@ -56,12 +56,7 @@ function QRScanner() {
   const checkIn = async (scannedEmail) => {
     setLoading(true);
 
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setResult("❌ Authentication error: You are not logged in.");
-      setLoading(false);
-      return;
-    }
+   
 
     try {
       const res = await axios.post(
@@ -70,7 +65,6 @@ function QRScanner() {
         {
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}` 
           }
         }
       );
@@ -100,18 +94,10 @@ function QRScanner() {
   };
 
   const fetchCount = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("Authentication token not found to fetch count.");
-      return; 
-    }
+   
 
     try {
-      const res = await axios.get(`${baseApiUrl}/api/event/${eventId}/count`, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        }
-      });
+      const res = await axios.get(`${baseApiUrl}/api/event/${eventId}/count`);
  
       if (res.data && res.data.checkedInCount !== undefined) {
         setCount(res.data.checkedInCount);

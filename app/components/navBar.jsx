@@ -138,10 +138,11 @@ useEffect(() => {
 
 
 {/* هنا لبمفروض بعدين اتحقق من الصلاحية الحساب checkingVerification */}
-      {user ? <></> :    <div className="flex gap-1"><div  
+      {user ? <></> :    <div className="flex gap-1">
+        {/* <div  
                     className="">
                       <Signup  />
-                  </div>
+                  </div> */}
                   <div>
 
 
@@ -222,10 +223,12 @@ useEffect(() => {
          
 
 
-        {user? <></> :    <><div  
+        {user? <></> :    <>
+        {/* <div  
                     className="">
                       <Signup  />
-                  </div>
+                  </div> */}
+
                   <div>
 
 

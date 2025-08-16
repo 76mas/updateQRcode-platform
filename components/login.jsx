@@ -94,13 +94,13 @@ export default function Login() {
             <DialogTitle className="sm:text-center text-white">
               Welcome back
             </DialogTitle>
-            <DialogDescription className="sm:text-center text-zinc-300">
-              Enter your credentials to login to your account.
-            </DialogDescription>
+            {/* <DialogDescription className="sm:text-center text-zinc-300">
+              Login with Google
+            </DialogDescription> */}
           </DialogHeader>
         </div>
 
-        <form className="space-y-5">
+        {/* <form className="space-y-5">
           <div className="space-y-4">
             <div className="*:not-first:mt-2">
               <Label htmlFor={`${id}-email`} className="text-white">
@@ -153,16 +153,16 @@ export default function Login() {
           >
             {loading ? "Signing in..." : "Sign in"}
           </Button>
-        </form>
+        </form> */}
 
-        <div className="before:bg-zinc-700 after:bg-zinc-700 flex items-center gap-3 before:h-px before:flex-1 after:h-px after:flex-1">
+        {/* <div className="before:bg-zinc-700 after:bg-zinc-700 flex items-center gap-3 before:h-px before:flex-1 after:h-px after:flex-1">
           <span className="text-zinc-400 text-xs">Or</span>
-        </div>
+        </div> */}
 
         <Button
           onClick={handleGoogleLogin}
           variant="outline"
-          className="text-white border-zinc-600 hover:bg-zinc-800"
+          className="text-white border-zinc-600 cursor-pointer hover:bg-zinc-800"
         >
           Login with Google
         </Button>
