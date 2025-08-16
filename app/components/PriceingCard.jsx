@@ -75,7 +75,7 @@ const PricingCard = () => {
             <p className="text-gray-400 mb-8">Best suited for event organizers and teams.</p>
             
             <div className="flex items-baseline gap-2 mb-8">
-              <span className="text-5xl font-bold">$10</span>
+              <span className="text-5xl font-bold">$25</span>
               <span className="text-gray-400">per month</span>
             </div>
 

@@ -9,6 +9,7 @@ import Link from "next/link";
 import { DirectionAwareHover } from "@/components/details";
 import { useAuth } from "../../context/authLogin";
 import { AnimatedTooltip } from "@/components/collaborator";
+import NavBarDetails from "@/app/components/navDetails";
 
 const baseApiUrl = "https://mk25szk5-7093.inc1.devtunnels.ms";
 
@@ -157,17 +158,18 @@ const EventDetails = () => {
 
     return (
         <div className="w-full min-h-screen">
-            <div className="max-w-[95%] mx-auto py-10">
+          <NavBarDetails />
+            <div className="max-w-[95%]  mt-20 mx-auto py-10">
            
                 <div className="flex flex-col gap-8">
                     
                      
-                    <div className="w-full flex flex-col  lg:flex-row md:flex-row justify-around h-[99%]  gap-2 mt-10">
+                    <div className="w-full flex flex-col  lg:flex-row md:flex-row justify-center h-[99%]  gap-2 mt-10">
                       
                       
                     
                     
-                    <div className="flex flex-col mt-3 items-center justify-center gap-6">
+                    <div className="flex flex-col mt-3 mr-25 items-center justify-center gap-6">
                          <DirectionAwareHover  imageUrl={details.backgroundImageUri}>
                             <p className="font-bold text-xl">{details.name}</p>
                             <p className="font-normal text-sm">{details.eventDate}</p>

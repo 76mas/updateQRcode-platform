@@ -74,7 +74,10 @@ html{
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
-
+::selection{
+  background-color: #3c1c8f;
+  color: white;
+}
 /* هذا المسار (الخلفية) */
 ::-webkit-scrollbar {
   width: 8px; /* عرض السكروول */
