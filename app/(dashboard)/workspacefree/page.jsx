@@ -6,6 +6,8 @@ import axios from "axios";
 import { useEvent } from "../context/StepsInfo";
 import { auth } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
+import { onAuthStateChanged } from "firebase/auth";
+import ErrorLginAlert from "@/components/ErrorLogin";
 
 export default function WorkeSpaceFree() {
   const [sendData, setSenddata] = useState(false);
@@ -92,9 +94,31 @@ export default function WorkeSpaceFree() {
     sendForm();
   }, [sendData]); 
 
+
+const [alrtLogin,setAlertLogin]=useState(false);
+  
+useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+  
+       setAlertLogin(false);
+      } else {
+       setAlertLogin(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+
   return (
     <div className="flex flex-col min-w-full min-h-screen">
-      <Component setSenddata={setSenddata} isLoading={isLoading} />
+        {alrtLogin ?
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px]">
+          <ErrorLginAlert typeError={"you must login"} />
+        </div>
+      :<>      <Component setSenddata={setSenddata} isLoading={isLoading} /></>}
+
     </div>
   );
 }

@@ -8,6 +8,9 @@ import WaveCard from "@/app/components/EventCard";
 import TextType from "@/app/components/emptyTemplate";
 import { LoaderOne } from "@/components/loding";
 import { useReloadTemplate } from "../context/reloadTempleat";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/app/firebase/config";
+import ErrorLginAlert from "@/components/ErrorLogin";
 const baseApiUrl = "https://mk25szk5-7093.inc1.devtunnels.ms";
 
 export default function TemplatesPage() {
@@ -37,6 +40,21 @@ export default function TemplatesPage() {
   }, [isSyncedWithBackend,reload]);
 
 
+
+const [alrtLogin,setAlertLogin]=useState(false);
+  
+useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+  
+       setAlertLogin(false);
+      } else {
+       setAlertLogin(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
 // "use client"
 // import TextType from "@/app/components/emptyTemplate";
@@ -127,7 +145,12 @@ export default function TemplatesPage() {
 
   return (
     <div className="flex flex-wrap justify-center gap-6 p-6 b min-h-screen">
-        <NavBar />
+
+     {alrtLogin ?
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px]">
+          <ErrorLginAlert typeError={"you must login"} />
+        </div>
+      :<>   <NavBar />
 
             <div className="w-full max-w-7xl mx-auto px-4 mt-[100px]">
 
@@ -196,7 +219,8 @@ export default function TemplatesPage() {
             
  
 </div>
-
+</> }
+     
     
     </div>
   );

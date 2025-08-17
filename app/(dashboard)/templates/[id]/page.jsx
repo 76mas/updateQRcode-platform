@@ -10,6 +10,8 @@ import { DirectionAwareHover } from "@/components/details";
 import { useAuth } from "../../context/authLogin";
 import { AnimatedTooltip } from "@/components/collaborator";
 import NavBarDetails from "@/app/components/navDetails";
+import { onAuthStateChanged } from "firebase/auth";
+import ErrorLginAlert from "@/components/ErrorLogin";
 
 const baseApiUrl = "https://mk25szk5-7093.inc1.devtunnels.ms";
 
@@ -155,10 +157,29 @@ const EventDetails = () => {
   }, [isSyncedWithBackend])
 
 
+const [alrtLogin,setAlertLogin]=useState(false);
+  
+useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+  
+       setAlertLogin(false);
+      } else {
+       setAlertLogin(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
     return (
         <div className="w-full min-h-screen">
-          <NavBarDetails />
+
+            {alrtLogin ?
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px]">
+          <ErrorLginAlert typeError={"you must login"} />
+        </div>
+      :<>    <NavBarDetails />
             <div className="max-w-[95%]  mt-20 mx-auto py-10">
            
                 <div className="flex flex-col gap-8">
@@ -198,6 +219,9 @@ const EventDetails = () => {
              <Link href={`/webcam/${id}`} className="fixed cursor-pointer   lg:bottom-10 lg:right-20 bottom-8 right-10 z-50">
                 <EnhancedCameraButton />
              </Link>
+</>}
+      
+
         </div>
     )
 }

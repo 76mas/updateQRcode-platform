@@ -8,6 +8,9 @@ import axios from "axios";
 import Webcam from "react-webcam";
 import jsQR from "jsqr";
 import { useParams } from "next/navigation";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/app/firebase/config";
+import ErrorLginAlert from "@/components/ErrorLogin";
 
 function QRScanner() {
 
@@ -148,10 +151,32 @@ function QRScanner() {
   return () => clearInterval(intervalRef.current);
 }, [cameraOn]);
 
+
+const [alrtLogin,setAlertLogin]=useState(false);
   
+useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+  
+       setAlertLogin(false);
+      } else {
+       setAlertLogin(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);  
+
+
   return (
     <div className="min-h-screen py-10 px-4 flex flex-col items-center justify-center gap-4">
-      <div
+     
+
+       {alrtLogin ?
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px]">
+               <ErrorLginAlert typeError={"you must login"} />
+             </div>
+           :<> <div
         className={`w-full max-w-3xl relative bg-white/5 rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[7.3px] border border-white/20 transition-all duration-500 overflow-hidden ${
           cameraOn ? "min-h-[850px]" : "min-h-[500px]"
         } p-6 justify-center items-center space-y-6`}
@@ -217,7 +242,8 @@ function QRScanner() {
             </div>
           </div>
         </div>
-      </div>
+      </div></>}
+     
     </div>
   );
 }

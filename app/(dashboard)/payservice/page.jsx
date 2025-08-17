@@ -1,6 +1,10 @@
 
-
+"use client"
+import { auth } from '@/app/firebase/config';
+import ErrorLginAlert from '@/components/ErrorLogin';
+import { onAuthStateChanged } from 'firebase/auth';
 import React from 'react';
+import { useState,useEffect } from 'react';
 
 const ButtonPay = () => {
   return (
@@ -83,10 +87,31 @@ export default function PayService() {
           },
     ]
 
+
+    
+const [alrtLogin,setAlertLogin]=useState(false);
+  
+useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+  
+       setAlertLogin(false);
+      } else {
+       setAlertLogin(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
     return (
         <div className="w-screen h-screen flex flex-col justify-center gap-8 items-center px-4">
             {/* <h2 className="text-gray-500 font-medium">Select your payment method</h2> */}
-            <ShinyText text="Select your payment method" disabled={false} speed={3} className='custom-class text-2xl font-bold' />
+
+              {alrtLogin ?
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px]">
+          <ErrorLginAlert typeError={"you must login"} />
+        </div>
+      :<>  <ShinyText text="Select your payment method" disabled={false} speed={3} className='custom-class text-2xl font-bold' />
             <ul className="mt-6 space-y-3">
                 {
                     radios.map((item, idx) => (
@@ -117,7 +142,8 @@ export default function PayService() {
 
 
                 <ButtonPay />
-         
+         </>}
+          
         </div>
     )
 }
