@@ -61,7 +61,8 @@ const steps = [
 
 const [isUserLogin,setisUserLogin]=useState(false);
 const [alrtLogin,setAlertLogin]=useState(false);
-  useEffect(() => {
+  
+useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
        setisUserLogin(true);
@@ -84,7 +85,7 @@ const [alrtLogin,setAlertLogin]=useState(false);
 {/* سكسشن ال  home */}
    <section id="home" className="w-full relative flex items-center justify-center">
   {alrtLogin && (
-    <div className="absolute right-8 bottom-30 w-[300px]">
+    <div className=" fixed right-8 bottom-30 w-[300px]">
       <ErrorLginAlert typeError={"you must login"} />
     </div>
   )}
