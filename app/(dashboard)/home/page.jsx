@@ -13,86 +13,18 @@ import ShinyText from "@/app/components/TextHomePAge";
 import { FaMagic, FaFileExcel, FaObjectGroup, FaQrcode } from "react-icons/fa";
 import PixelTransition from "@/app/components/imagePixle";
 import PricingCard from "@/app/components/PriceingCard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { auth } from "@/app/firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
 import { ExplainSteps } from "@/components/explansteps";
+import ErrorAlert from "@/components/ErrorAlert";
+import ErrorLginAlert from "@/components/ErrorLogin";
 
 
 
 
 
 export default function Home() {
-//  const testimonials = [
-//     {
-//       quote:
-//         "The attention to detail and innovative features have completely transformed our workflow. This is exactly what we've been looking for.",
-//       name: "Sarah Chen",
-//       designation: "Product Manager at TechFlow",
-//       src: "/stepimage/1s.png",
-//     },
-//     {
-//       quote:
-//         "Implementation was seamless and the results exceeded our expectations. The platform's flexibility is remarkable.",
-//       name: "Michael Rodriguez",
-//       designation: "CTO at InnovateSphere",
-//       src: "/stepimage/2s.png",
-//     },
-//     {
-//       quote:
-//         "This solution has significantly improved our team's productivity. The intuitive interface makes complex tasks simple.",
-//       name: "Emily Watson",
-//       designation: "Operations Director at CloudScale",
-//   src: "/stepimage/3s.png",
-//     },
-//     {
-//       quote:
-//         "Outstanding support and robust features. It's rare to find a product that delivers on all its promises.",
-//       name: "James Kim",
-//       designation: "Engineering Lead at DataPro",
-//   src: "/stepimage/4s.png",
-//     },
-//     {
-//       quote:
-//         "The scalability and performance have been game-changing for our organization. Highly recommend to any growing business.",
-//       name: "Lisa Thompson",
-//       designation: "VP of Technology at FutureNet",
-//   src: "/stepimage/5s.png",
-//     },
-//   ];  
-
-// const steps = [
-//   {
-//     quote: "Step 1: Enter the event name and date. This sets up the basic information for all invitations.",
-//     name: "Step 1",
-//     designation: "Event Info",
-//     src: "/stepimage/1s.png",
-//   },
-//   {
-//     quote: "Step 2: Upload the Excel file containing each guest's name and email. The platform will use this to personalize invitations.",
-//     name: "Step 2",
-//     designation: "Upload Excel",
-//     src: "/stepimage/2s.png",
-//   },
-//   {
-//     quote: "Step 3: Upload the invitation or design image. Ensure it is high quality and matches the theme of your event.",
-//     name: "Step 3",
-//     designation: "Upload Design",
-//     src: "/stepimage/3s.png",
-//   },
-//   {
-//     quote: "Step 4: Place boxes on the design to map each guest's name and QR code. Adjust the font color, size, and position. Save and submit the layout.",
-//     name: "Step 4",
-//     designation: "Customize Layout",
-//     src: "/stepimage/4s.png",
-//   },
-//   {
-//     quote: "Step 5: Download the final file (ZIP) containing all personalized invitations ready to share or print.",
-//     name: "Step 5",
-//     designation: "Download ZIP",
-//     src: "/stepimage/5s.png",
-//   },
-// ];
 
 const steps = [
   {
@@ -127,15 +59,15 @@ const steps = [
   },
 ];
 
-
+const [isUserLogin,setisUserLogin]=useState(false);
+const [alrtLogin,setAlertLogin]=useState(false);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const idToken = await user.getIdToken();
-        localStorage.setItem("token", idToken);
-        console.log("Token:", idToken);
+       setisUserLogin(true);
+       setAlertLogin(false);
       } else {
-        console.log("unauthorized");
+        setisUserLogin(false);
       }
     });
 
@@ -147,30 +79,56 @@ const steps = [
     <div className="min-h-screen flex flex-col items-center text-white pt-[60px] px-4">
 
       <NavBar />
+     
 
 {/* سكسشن ال  home */}
-      <section id="home" className="flex flex-col justify-center items-center relative min-h-screen text-center max-w-3xl gap-2">
-   
-        <ShinyText text="Effortlessly Organize Your Event Invitations" disabled={false} speed={10} className='custom-class font-bold text-2xl md:text-5xl lg:text-5xl ' />
-        <p className="text-lg  mb-30  text-gray-600 leading-relaxed">
-          Upload your names list and design, and let our platform generate
-          professional, personalized invitations with QR codes for everyone!
-        </p> 
-        
-        <Link href="/templates" className="button-container  mb-30 ">
-            <div className="button">
-                <span>Get Started</span>
-            </div>
-        </Link>
+   <section id="home" className="w-full relative flex items-center justify-center">
+  {alrtLogin && (
+    <div className="absolute right-8 bottom-30 w-[300px]">
+      <ErrorLginAlert typeError={"you must login"} />
+    </div>
+  )}
 
-      <FaAngleDown  className="absolute bottom-[100px] text-gray-500 left-[50%]"
-        style={{
-          animation: "float 1.5s ease-in-out infinite",
+  <div className="flex flex-col justify-center items-center relative min-h-screen text-center max-w-3xl gap-2">
+    <ShinyText
+      text="Effortlessly Organize Your Event Invitations"
+      disabled={false}
+      speed={10}
+      className="custom-class font-bold text-2xl md:text-5xl lg:text-5xl"
+    />
+    <p className="text-lg mb-8 text-gray-600 leading-relaxed">
+      Upload your names list and design, and let our platform generate
+      professional, personalized invitations with QR codes for everyone!
+    </p>
+
+    {isUserLogin ? (
+      <Link href="/templates" className="button-container mb-8">
+        <div className="button">
+          <span>Get Started</span>
+        </div>
+      </Link>
+    ) : (
+      <div
+        onClick={() => {
+          setAlertLogin(true);
         }}
-      />
+        className="button-container mb-8"
+      >
+        <div className="button">
+          <span>Get Started</span>
+        </div>
+      </div>
+    )}
 
+    <FaAngleDown
+      className="absolute bottom-[100px] text-gray-500 left-1/2 -translate-x-1/2"
+      style={{
+        animation: "float 1.5s ease-in-out infinite",
+      }}
+    />
+  </div>
+</section>
 
-      </section>
 {/* سكسشن ال  home */}
        
 
