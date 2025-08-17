@@ -85,7 +85,7 @@ useEffect(() => {
 {/* سكسشن ال  home */}
    <section id="home" className="w-full relative flex items-center justify-center">
   {alrtLogin && (
-    <div className=" fixed right-8 bottom-30 w-[300px]">
+    <div className=" fixed z-[2222222] right-8 bottom-20 w-[300px]">
       <ErrorLginAlert typeError={"you must login"} />
     </div>
   )}
