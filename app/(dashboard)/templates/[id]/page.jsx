@@ -185,12 +185,12 @@ useEffect(() => {
                 <div className="flex flex-col gap-8">
                     
                      
-                    <div className="w-full flex flex-col  lg:flex-row md:flex-row justify-center h-[99%]  gap-2 mt-10">
-                      
+                    <div className="w-full flex flex-col  lg:flex-row md:flex-row justify-center h-[99%] items-center gap-9 lg:gap-2 md:gap-2 mt-10">
+                    
                       
                     
                     
-                    <div className="flex flex-col mt-3 mr-25 items-center justify-center gap-6">
+                    <div className="flex flex-col mt-3 lg:mr-25 items-center justify-center gap-6">
                          <DirectionAwareHover  imageUrl={details.backgroundImageUri}>
                             <p className="font-bold text-xl">{details.name}</p>
                             <p className="font-normal text-sm">{details.eventDate}</p>
