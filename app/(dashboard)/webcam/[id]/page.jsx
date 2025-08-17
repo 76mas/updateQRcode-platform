@@ -107,20 +107,48 @@ function QRScanner() {
     }
   };
 
+  // useEffect(() => {
+  //   fetchCount();
+
+  //   if (cameraOn) {
+  //     intervalRef.current = setInterval(captureAndScan, 1000);
+  //     const pollInterval = setInterval(fetchCount, 5000); 
+
+  //     return () => {
+  //       clearInterval(intervalRef.current);
+  //       clearInterval(pollInterval);
+  //     };
+  //   }
+  // }, [cameraOn]); 
+
+
+  // 
+
+
   useEffect(() => {
-    fetchCount();
 
-    if (cameraOn) {
-      intervalRef.current = setInterval(captureAndScan, 1000);
-      const pollInterval = setInterval(fetchCount, 5000); 
+  fetchCount();
 
-      return () => {
-        clearInterval(intervalRef.current);
-        clearInterval(pollInterval);
-      };
-    }
-  }, [cameraOn]); 
+ 
+  const pollInterval = setInterval(fetchCount, 2000);
 
+  return () => {
+    clearInterval(pollInterval);
+  };
+}, []); 
+
+
+  useEffect(() => {
+  if (cameraOn) {
+    intervalRef.current = setInterval(captureAndScan, 1000);
+  } else {
+    clearInterval(intervalRef.current);
+  }
+
+  return () => clearInterval(intervalRef.current);
+}, [cameraOn]);
+
+  
   return (
     <div className="min-h-screen py-10 px-4 flex flex-col items-center justify-center gap-4">
       <div
