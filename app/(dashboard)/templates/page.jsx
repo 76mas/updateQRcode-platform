@@ -183,7 +183,7 @@ useEffect(() => {
                   pauseDuration={1500}
                   showCursor={true}
                   cursorCharacter="_"
-                  className="text-[30px] mb-[100px] text-shadow-2xl p-3"
+                  className="lg:text-[30px] md:text-[28px] text-[20px] mb-[100px] text-shadow-2xl p-3"
                   
                 />
              
