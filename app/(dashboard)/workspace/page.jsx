@@ -8,9 +8,12 @@ import { auth } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import ErrorLginAlert from "@/components/ErrorLogin";
+import AlertErrorApi from "@/app/components/ErrorApi";
 
 export default function WorkeSpace() {
   const [sendData, setSenddata] = useState(false);
+  const [isError ,setIsError]=useState(false);
+  const [massegae,setMassegae]=useState("");
   const navigator=useRouter()
 
   const [isLoading, setIsLoading] = useState(false);
@@ -124,15 +127,19 @@ export default function WorkeSpace() {
         }
       } catch (error) {
         console.error("API Error:", error);
-        if (error.response) {
-          alert(`Error: ${error.response.status} - ${error.response.statusText}`);
-        } else {
-          alert("An error occurred. Check the console for details.");
+
+      setIsError(true);
+      setMassegae(error.response.data.detail)
+        if(error.status===403){
+
+
+navigator.push("/#contact")
         }
-      } finally {
+    } finally {
   
         setIsLoading(false);
         setSenddata(false);
+
       }
     };
 
@@ -162,7 +169,9 @@ useEffect(() => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px]">
           <ErrorLginAlert typeError={"you must login"} />
         </div>
-      :<>      <Component setSenddata={setSenddata} isLoading={isLoading} /></>}
+      :<>     
+        <AlertErrorApi isError={isError} massegae={massegae} setIsError={setIsError}/>
+       <Component setSenddata={setSenddata} isLoading={isLoading} /></>}
 
     </div>
   );

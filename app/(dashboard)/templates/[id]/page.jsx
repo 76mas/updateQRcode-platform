@@ -12,6 +12,7 @@ import { AnimatedTooltip } from "@/components/collaborator";
 import NavBarDetails from "@/app/components/navDetails";
 import { onAuthStateChanged } from "firebase/auth";
 import ErrorLginAlert from "@/components/ErrorLogin";
+import AlertErrorApi from "@/app/components/ErrorApi";
 
 const baseApiUrl = "https://mk25szk5-7093.inc1.devtunnels.ms";
 
@@ -124,8 +125,10 @@ const EnhancedCameraButton = () => {
 const EventDetails = () => {
 
     const { id } = useParams()
-  let [people,setPeople]=useState([{}]);
-  const { isSyncedWithBackend } = useAuth();
+    const [isError,setIsError]=useState(false);  
+    const [massegae,seMassegae]=useState("");
+    let [people,setPeople]=useState([{}]);
+    const { isSyncedWithBackend } = useAuth();
     // const [imgUrl,setimageUrl]=useState("");
     const [details,setdetails]=useState({});
     
@@ -180,6 +183,8 @@ useEffect(() => {
           <ErrorLginAlert typeError={"you must login"} />
         </div>
       :<>    <NavBarDetails />
+{isError &&(    <AlertErrorApi setIsError={setIsError} massegae={massegae} isError={isError} />)}
+  
             <div className="max-w-[95%]  mt-20 mx-auto py-10">
            
                 <div className="flex flex-col gap-8">
@@ -202,7 +207,7 @@ useEffect(() => {
                     </div>
                      
 
-                      <TableCollaborators setPeople={setPeople} url={`${baseApiUrl}/api/event/${id}/getteam`} urlRole={`${baseApiUrl}/api/event/${id}`}/>
+                      <TableCollaborators seMassegae={seMassegae} setIsError={setIsError} setPeople={setPeople} url={`${baseApiUrl}/api/event/${id}/getteam`} urlRole={`${baseApiUrl}/api/event/${id}`}/>
 
 
                     </div>

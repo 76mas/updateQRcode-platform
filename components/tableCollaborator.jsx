@@ -52,7 +52,7 @@ import { useReloadTemplate } from "@/app/(dashboard)/context/reloadTempleat";
 
 
 
-function AlertDelete({CheckeArry ,setDeleteItem}) {
+function AlertDelete({CheckeArry ,setDeleteItem,setIsError ,seMassegae}) {
   const {id}=useParams();
 
 
@@ -73,6 +73,8 @@ const baseApiUrl = "https://mk25szk5-7093.inc1.devtunnels.ms";
   }
   catch(error){
       console.error(error);
+      seMassegae(error.response.data.detail)
+      setIsError(true);
   }
  
 
@@ -133,7 +135,7 @@ const baseApiUrl = "https://mk25szk5-7093.inc1.devtunnels.ms";
 
 
 
-export default function TableCollaborators({ url,urlRole ,setPeople}) {
+export default function TableCollaborators({ url,urlRole ,setPeople ,setIsError ,seMassegae}) {
   const { isSyncedWithBackend } = useAuth();
   const [deleteitem,setDeleteItem]=useState(false);
   // const [addItem,setAddItem]=useState(false);
@@ -174,17 +176,33 @@ useEffect(() => {
   console.log("data", updatedData);
 
   const sendEditRoles = async () => {
+    // try {
+    //   const response = await axios.put(`${baseApiUrl}/api/event/${id}/editteam`, updatedData);
+    //   console.log(response.data);
+    //   setSendRole(false);
+    //   setOpen(false)
+    // } catch (error) {
+    //   console.log(error);
+    //   seMassegae(error.response.data.detail)
+    //   setIsError(true);
+
+
+    // }
+
     try {
-      const response = await axios.put(`${baseApiUrl}/api/event/${id}/editteam`, updatedData);
-      console.log(response.data);
-      setSendRole(false);
-      setOpen(false)
-    } catch (error) {
-      console.log(error);
-    }
-    finally{
-      setOpen(false)
-    }
+  const response = await axios.put(`${baseApiUrl}/api/event/${id}/editteam`, updatedData);
+  console.log(response.data);
+  setSendRole(false);
+  setOpen(false);   // <-- هنا أوكي تخليها، بس بالنجاح فقط
+} catch (error) {
+  console.log(error);
+  seMassegae(error.response.data.detail);
+  setIsError(true);
+  setSendRole(false);
+  setOpen(false) 
+  
+}
+  
   };
 
   sendEditRoles();
@@ -224,7 +242,6 @@ useEffect(() => {
       try{
         const response=await axios.get(url)
         console.log("table collaborator",response.data)
-        
         setStaff(response.data);
         setDeleteItem(false);
         setAddItem(false);
@@ -281,7 +298,7 @@ console.log(roleCollaborator);
 
   return (
     <div className="w-full lg:w-1/2 ">
-      {/* Header with Add Button */}
+   
      
     
       <div className="flex justify-between items-center mb-4">
@@ -297,9 +314,9 @@ console.log(roleCollaborator);
         </div>
        {openButtons?
        <> 
-       <AlertDelete CheckeArry={CheckeArry} setDeleteItem={setDeleteItem}/>
+       <AlertDelete seMassegae={seMassegae} setIsError={setIsError} CheckeArry={CheckeArry} setDeleteItem={setDeleteItem}/>
 
-         <EditRole loding={loding} setloding={setloding} setSendRole={setSendRole} Role={roleCollaborator} open={open} setOpen={setOpen} setRole={setRoleCollaborator} />
+         <EditRole  loding={loding} setloding={setloding} setSendRole={setSendRole} Role={roleCollaborator} open={open} setOpen={setOpen} setRole={setRoleCollaborator} />
          </>:<></>}
 
         
@@ -324,15 +341,8 @@ console.log(roleCollaborator);
                 <TableCell className={`flex justify-start gap-3 items-center`}>
             
                    
-                   {role==="Owner"?   
-                  //  <Checkbox
-                  //   id={`${item.userId}`}
-                  //   checked={CheckeArry.find((u) => u.userId === item.userId)?.status || false}
-                  //   onCheckedChange={(checked) =>
-                  //   handleStatusChange(checked,item.userId)
-                  //   }
-                  //   className="border-gray-600 cursor-pointer data-[state=checked]:bg-blue-600 h-6 w-6 data-[state=checked]:border-blue-600" />
-               
+                   {role==="Owner"  ?   
+                 
                     <Checkbox
                     id={`${item.userId}`}
                     checked={CheckeArry.find((u) => u.userId === item.userId)?.status || false}
@@ -392,56 +402,3 @@ console.log(roleCollaborator);
 
 
 
-
-// const people = [
-//   {
-//     id: 1,
-//     name: "John Doe",
-//     designation: "Software Engineer",
-//     image:
-//       "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3387&q=80",
-//   },
-//   {
-//     id: 2,
-//     name: "Robert Johnson",
-//     designation: "Product Manager",
-//     image:
-//       "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-//   },
-//   {
-//     id: 3,
-//     name: "Jane Smith",
-//     designation: "Data Scientist",
-//     image:
-//       "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-//   },
-//   {
-//     id: 4,
-//     name: "Emily Davis",
-//     designation: "UX Designer",
-//     image:
-//       "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-//   },
-//   {
-//     id: 5,
-//     name: "Tyler Durden",
-//     designation: "Soap Developer",
-//     image:
-//       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80",
-//   },
-//   {
-//     id: 6,
-//     name: "Dora",
-//     designation: "The Explorer",
-//     image:
-//       "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3534&q=80",
-//   },
-// ];
-
-// function AnimatedTooltipPreview() {
-//   return (
-//     <div className="flex flex-row items-center justify-center mb-10 w-full">
-//       <AnimatedTooltip items={people} />
-//     </div>
-//   );
-// }

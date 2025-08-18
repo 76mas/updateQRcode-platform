@@ -1,3 +1,5 @@
+"use client"
+import {HeroUIProvider} from "@heroui/react";
 
 import { EventProvider } from "./context/StepsInfo";
 
@@ -6,9 +8,9 @@ export default function DashboardLayout({ children }) {
   return (
 
     <EventProvider>
-   
-         {children}
-      
+        <HeroUIProvider >
+           {children}
+        </HeroUIProvider>
     </EventProvider>
   );
 }

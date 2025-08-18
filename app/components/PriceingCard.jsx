@@ -97,10 +97,15 @@ const PricingCard = () => {
               </div>
             </div>
 
-            <Link href={"/payservice"} className="block w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-center"
+            {/* <Link href={"/payservice"} className="block w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-center"
 >
               Get Started
-            </Link>
+            </Link> */}
+
+            <a href="https://wa.me/9647727488537" className="block w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-center">
+
+        Get Started
+            </a>
           </div>
         </div>
       </div>
