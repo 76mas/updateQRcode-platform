@@ -114,7 +114,7 @@ export default function NavBar() {
   return (
     <>
     
-      <div className="hidden md:flex h-[60px] w-[70%] fixed top-6 z-50 left-1/2 -translate-x-1/2 
+      <div className="hidden md:flex h-[60px] w-[70%] max-w-[1200px] fixed top-6 z-50 left-1/2 -translate-x-1/2 
                       px-6 rounded-full border border-white/20 backdrop-blur-md bg-white/10 
                       text-white items-center justify-between shadow-md transition-all duration-300 
                       hover:shadow-[0_8px_40px_rgba(0,0,0,0.15)] hover:bg-white/15">

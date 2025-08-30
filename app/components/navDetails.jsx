@@ -19,7 +19,7 @@ export default function NavBarDetails() {
   return (
     <>
       {/* Desktop NavBar */}
-      <div className="hidden md:flex h-[60px] w-[70%] fixed top-6 z-50 left-1/2 -translate-x-1/2 
+      <div className="hidden md:flex h-[60px] w-[70%] max-w-[1200px] fixed top-6 z-50 left-1/2 -translate-x-1/2 
                       px-6 rounded-full border border-gray-500/30 bg-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[10px]
                       text-white items-center justify-between transition-all duration-300 hover:shadow-[0_8px_40px_rgba(0,0,0,0.15)]">
 

@@ -4,13 +4,13 @@ import { createContext, useContext, useState } from "react";
 
 const EventContext = createContext();
 
-
 export const EventProvider = ({ children }) => {
   const [eventName, setEventName] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [excelData, setExcelData] = useState(null);
   const [fontColor, setfontcolor] = useState(null);
   const [designImage, setDesignImage] = useState(null);
+  const [fontName, setFontName] = useState("Cairo");
   const [boxes, setBoxes] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
 
@@ -40,12 +40,13 @@ export const EventProvider = ({ children }) => {
         setEventDate,
         fontColor,
         setfontcolor,
+        fontName,
+        setFontName,
       }}
     >
       {children}
     </EventContext.Provider>
   );
 };
-
 
 export const useEvent = () => useContext(EventContext);

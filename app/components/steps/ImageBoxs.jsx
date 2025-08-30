@@ -9,13 +9,38 @@ import { Rnd } from "react-rnd";
 export default function ImageWithBoxes() {
   const [boxs, setBoxs] = useState([]);
   const [imagSize, setImageSize] = useState({ width: 0, height: 0 });
-  const { setBoxes, designImage, setfontcolor } = useEvent();
+  const { setBoxes, designImage, setfontcolor, setFontName } = useEvent();
   const [imageUrl, setImageUrl] = useState(null);
   const [color, setColor] = useState("#000");
-  const [isChanged,setIsChanged]=useState(false);
-
+  const [isChanged, setIsChanged] = useState(false);
 
   const imgRef = useRef(null);
+  const [font, setFont] = useState("Cairo");
+
+  const fonts = [
+    "Cairo", // كايرو – واجهات وتطبيقات
+    "Tajawal", // تجوال – حديث وسلس
+    "Amiri", // أميري – كتب ونصوص كلاسيكية
+    "Reem Kufi", // ريم كوفي – عناوين أنيقة
+    "Almarai", // المراعي – خط رسمي
+    "Changa", // تشانغا – عريض وواضح
+    "El Messiri", // المسيري – عصري
+    "Markazi Text", // مركزي – للقراءة القرآنية والنصوص
+    "Aref Ruqaa", // عارف رقعة – للزخرفة والعناوين
+    "Scheherazade New", // شهرزاد – مخصص للنصوص الطويلة
+
+    // خطوط إضافية قوية
+    "IBM Plex Sans Arabic", // واضح ومناسب للواجهات
+    "Noto Naskh Arabic", // نَسخ تقليدي واضح للكتب
+    "Noto Kufi Arabic", // كوفي مرتب
+    "Mada", // خط واجهات جميل
+    "Harmattan", // للقراءة الطويلة، خفيف
+    "Lateef", // خط نسخي أنيق
+    "Rakkas", // للزخارف والعناوين
+    "Katibeh", // بخط اليد، جريء
+    "Jomhuria", // عناوين كبيرة
+    "Mirza", // خط عصري مميز
+  ];
 
   useEffect(() => {
     if (designImage) {
@@ -46,14 +71,11 @@ export default function ImageWithBoxes() {
   const handelSave = () => {
     if (!imgRef.current) return;
 
-
     const naturalWidth = imagSize.width;
     const naturalHeight = imagSize.height;
 
-
     const displayedWidth = imgRef.current.clientWidth;
     const displayedHeight = imgRef.current.clientHeight;
-
 
     const scaleX = naturalWidth / displayedWidth;
     const scaleY = naturalHeight / displayedHeight;
@@ -69,16 +91,12 @@ export default function ImageWithBoxes() {
     setBoxes(scaledBoxes);
     setfontcolor(color);
     setIsChanged(false);
+    setFontName(font);
   };
 
-
-  useEffect(()=>{
-
-
-      setIsChanged(true);
-
-
-  },[boxs, setBoxs,color, setColor])
+  useEffect(() => {
+    setIsChanged(true);
+  }, [boxs, setBoxs, color, setColor]);
 
   const handeldeltebox = (id) => {
     setBoxs((prev) => prev.filter((i) => i.id !== id));
@@ -154,16 +172,16 @@ export default function ImageWithBoxes() {
                   ? "border-[#008cff] border-2"
                   : "border-[#37ff00] border-2"
               } h-full bg-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[2.3px] p-3 flex`}
-
-                style={{
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    // overflow: `${item.type === "QR"? "auto":"hidden"}`,
-    // overflow:"auto"
-  }}
+              style={{
+                fontFamily: item.type === "Name" ? font : "",
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                // overflow: `${item.type === "QR"? "auto":"hidden"}`,
+                // overflow:"auto"
+              }}
             >
               <MdDeleteForever
                 className="text-red-500 absolute z-50 text-2xl -top-6 -left-5 cursor-pointer"
@@ -172,27 +190,35 @@ export default function ImageWithBoxes() {
                 }}
               />
 
-
-                   {item.type==="QR"?<h1   style={{
+              {item.type === "QR" ? (
+                <h1
+                  style={{
                     whiteSpace: "nowrap",
-                   fontSize:"30px",
+                    fontSize: "30px",
                     transformOrigin: "center",
-                    color:"#008cff",
-                    backgroundColor:"#fff",
-                    padding:"5px",
-                    borderRadius:"10px"
-                  }}  
-                  >QR</h1>: <h1   style={{
+                    color: "#008cff",
+                    backgroundColor: "#fff",
+                    padding: "5px",
+                    borderRadius: "10px",
+                  }}
+                >
+                  QR
+                </h1>
+              ) : (
+                <h1
+                  style={{
                     whiteSpace: "nowrap",
-                    transform: `scale(${Math.min(item.width / 150, item.height / 40)})`,
+                    transform: `scale(${Math.min(
+                      item.width / 150,
+                      item.height / 40
+                    )})`,
                     transformOrigin: "center",
-                    color:`${color}`,
-                  }}  
-                  >name be like this</h1>}
-
-
-
-
+                    color: `${color}`,
+                  }}
+                >
+                  Mahmoud محمود
+                </h1>
+              )}
             </div>
           </Rnd>
         ))}
@@ -215,28 +241,58 @@ export default function ImageWithBoxes() {
 
           <button
             onClick={handelSave}
-            className={`h-10 text-[13px] p-1 flex justify-center items-center gap-2 ${isChanged?"bg-[#007517] cursor-pointer  hover:bg-[#006517]":"bg-[#0a3e14] hover:bg-[#0a3e14]"}  w-[100px] rounded-xl`}
+            className={`h-10 text-[13px] p-1 flex justify-center items-center gap-2 ${
+              isChanged
+                ? "bg-[#007517] cursor-pointer  hover:bg-[#006517]"
+                : "bg-[#0a3e14] hover:bg-[#0a3e14]"
+            }  w-[100px] rounded-xl`}
             disabled={!isChanged}
-         >
-         {isChanged?"Save":<><FaRegCheckCircle /> <span>Saved</span> </>}
+          >
+            {isChanged ? (
+              "Save"
+            ) : (
+              <>
+                <FaRegCheckCircle /> <span>Saved</span>{" "}
+              </>
+            )}
           </button>
         </div>
+        <div className="flex items-center gap-3">
+          <label className="text-[13px] flex flex-col items-center cursor-pointer rounded-xl p-3 bg-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[2.3px]">
+            <input
+              type="color"
+              id="inputcolor"
+              className="appearance-none w-[50px] h-[50px] bg-transparent border-none cursor-pointer"
+              value={color}
+              onChange={(event) => {
+                setColor(event.target.value);
+              }}
+            />
+            Choice Name color
+          </label>
 
-        <label className="text-[13px] flex flex-col items-center cursor-pointer rounded-xl p-3 bg-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[2.3px]">
-          <input
-            type="color"
-            id="inputcolor"
-            className="appearance-none w-[50px] h-[50px] bg-transparent border-none cursor-pointer"
-            value={color}
-            onChange={(event) => {
-              setColor(event.target.value);
-            }}
-          />
-          Choice Name color
-        </label>
+          <select
+            className="p-2 rounded-lg bg-white/10 cursor-pointer"
+            value={font}
+            onChange={(e) => setFont(e.target.value)}
+          >
+            {fonts.map((f, index) => (
+              <option
+                key={index}
+                value={f}
+                style={{
+                  fontFamily: f,
+                  backgroundColor: "#1e293b",
+                  color: "white",
+                  cursor: "pointer",
+                }}
+              >
+                {f}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
     </div>
   );
 }
-
-

@@ -1,15 +1,9 @@
 "use client"
-
 import NavBar from "@/app/components/navBar";
 import Component from "@/components/questions";
 import { FaAngleDown } from "react-icons/fa6";
 import Link from "next/link";
-
-
 import ShinyText from "@/app/components/TextHomePAge";
-  
-
-
 import { FaMagic, FaFileExcel, FaObjectGroup, FaQrcode } from "react-icons/fa";
 import PixelTransition from "@/app/components/imagePixle";
 import PricingCard from "@/app/components/PriceingCard";
@@ -19,8 +13,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { ExplainSteps } from "@/components/explansteps";
 import ErrorAlert from "@/components/ErrorAlert";
 import ErrorLginAlert from "@/components/ErrorLogin";
-
-
 
 
 
@@ -240,7 +232,7 @@ useEffect(() => {
 
 
 
-<PricingCard />
+<PricingCard  />
 
 
 
