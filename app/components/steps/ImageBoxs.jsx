@@ -9,37 +9,42 @@ import { Rnd } from "react-rnd";
 export default function ImageWithBoxes() {
   const [boxs, setBoxs] = useState([]);
   const [imagSize, setImageSize] = useState({ width: 0, height: 0 });
-  const { setBoxes, designImage, setfontcolor, setFontName } = useEvent();
+  const {
+    setBoxes,
+    designImage,
+    setfontcolor,
+    setFontName,
+    isChanged,
+    setIsChanged,
+  } = useEvent();
   const [imageUrl, setImageUrl] = useState(null);
   const [color, setColor] = useState("#000");
-  const [isChanged, setIsChanged] = useState(false);
 
   const imgRef = useRef(null);
   const [font, setFont] = useState("Cairo");
 
   const fonts = [
-    "Cairo", // كايرو – واجهات وتطبيقات
-    "Tajawal", // تجوال – حديث وسلس
-    "Amiri", // أميري – كتب ونصوص كلاسيكية
-    "Reem Kufi", // ريم كوفي – عناوين أنيقة
-    "Almarai", // المراعي – خط رسمي
-    "Changa", // تشانغا – عريض وواضح
-    "El Messiri", // المسيري – عصري
-    "Markazi Text", // مركزي – للقراءة القرآنية والنصوص
-    "Aref Ruqaa", // عارف رقعة – للزخرفة والعناوين
-    "Scheherazade New", // شهرزاد – مخصص للنصوص الطويلة
+    "Cairo",
+    "Tajawal",
+    "Amiri",
+    "Reem Kufi",
+    "Almarai",
+    "Changa",
+    "El Messiri",
+    "Markazi Text",
+    "Aref Ruqaa",
+    "Scheherazade New",
 
-    // خطوط إضافية قوية
-    "IBM Plex Sans Arabic", // واضح ومناسب للواجهات
-    "Noto Naskh Arabic", // نَسخ تقليدي واضح للكتب
-    "Noto Kufi Arabic", // كوفي مرتب
-    "Mada", // خط واجهات جميل
-    "Harmattan", // للقراءة الطويلة، خفيف
-    "Lateef", // خط نسخي أنيق
-    "Rakkas", // للزخارف والعناوين
-    "Katibeh", // بخط اليد، جريء
-    "Jomhuria", // عناوين كبيرة
-    "Mirza", // خط عصري مميز
+    "IBM Plex Sans Arabic",
+    "Noto Naskh Arabic",
+    "Noto Kufi Arabic",
+    "Mada",
+    "Harmattan",
+    "Lateef",
+    "Rakkas",
+    "Katibeh",
+    "Jomhuria",
+    "Mirza",
   ];
 
   useEffect(() => {
@@ -96,7 +101,7 @@ export default function ImageWithBoxes() {
 
   useEffect(() => {
     setIsChanged(true);
-  }, [boxs, setBoxs, color, setColor]);
+  }, [boxs, setBoxs, color, setColor, font, setFont]);
 
   const handeldeltebox = (id) => {
     setBoxs((prev) => prev.filter((i) => i.id !== id));
@@ -179,8 +184,7 @@ export default function ImageWithBoxes() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                // overflow: `${item.type === "QR"? "auto":"hidden"}`,
-                // overflow:"auto"
+                overflow: item.type === "QR" ? "hidden" : "",
               }}
             >
               <MdDeleteForever

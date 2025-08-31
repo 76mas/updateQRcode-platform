@@ -13,6 +13,7 @@ export const EventProvider = ({ children }) => {
   const [fontName, setFontName] = useState("Cairo");
   const [boxes, setBoxes] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [isChanged, setIsChanged] = useState(false);
 
   const clearAll = () => {
     setEventName("");
@@ -42,6 +43,8 @@ export const EventProvider = ({ children }) => {
         setfontcolor,
         fontName,
         setFontName,
+        isChanged,
+        setIsChanged,
       }}
     >
       {children}

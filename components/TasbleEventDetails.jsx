@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useId, useMemo, useRef, useState } from "react"
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -24,9 +24,9 @@ import {
   ListFilterIcon,
   PlusIcon,
   TrashIcon,
-} from "lucide-react"
+} from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,10 +37,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+} from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -55,26 +55,26 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
-} from "@/components/ui/pagination"
+} from "@/components/ui/pagination";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -82,30 +82,27 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import { auth } from "@/app/firebase/config";
 import axios from "axios";
 import ShinyText from "@/app/components/TextHomePAge";
 import { LoaderOne } from "./loding";
 import { useAuth } from "@/app/(dashboard)/context/authLogin";
+import { useParams } from "next/navigation";
 
 // Custom filter function for multi-column searching
 const multiColumnFilterFn = (row, columnId, filterValue) => {
   const searchableRowContent =
-    `${row.original.name} ${row.original.email}`.toLowerCase()
-  const searchTerm = (filterValue ?? "").toLowerCase()
+    `${row.original.name} ${row.original.email}`.toLowerCase();
+  const searchTerm = (filterValue ?? "").toLowerCase();
   return searchableRowContent.includes(searchTerm);
-}
+};
 
-const statusFilterFn = (
-  row,
-  columnId,
-  filterValue
-) => {
-  if (!filterValue?.length) return true
-  const status = row.getValue(columnId)
+const statusFilterFn = (row, columnId, filterValue) => {
+  if (!filterValue?.length) return true;
+  const status = row.getValue(columnId);
   return filterValue.includes(status);
-}
+};
 
 const columns = [
   {
@@ -118,14 +115,16 @@ const columns = [
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
-        className="border-gray-600 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600" />
+        className="border-gray-600 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
+      />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
-        className="border-gray-600 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600" />
+        className="border-gray-600 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
+      />
     ),
     size: 50,
     enableSorting: false,
@@ -135,7 +134,10 @@ const columns = [
     header: "Name",
     accessorKey: "name",
     cell: ({ row }) => (
-      <div className="font-medium text-gray-100 min-w-0 truncate pr-2" title={row.getValue("name")}>
+      <div
+        className="font-medium text-gray-100 min-w-0 truncate pr-2"
+        title={row.getValue("name")}
+      >
         {row.getValue("name")}
       </div>
     ),
@@ -147,7 +149,10 @@ const columns = [
     header: "Email",
     accessorKey: "email",
     cell: ({ row }) => (
-      <div className="text-gray-300 min-w-0 truncate pr-2" title={row.getValue("email")}>
+      <div
+        className="text-gray-300 min-w-0 truncate pr-2"
+        title={row.getValue("email")}
+      >
         {row.getValue("email")}
       </div>
     ),
@@ -160,9 +165,9 @@ const columns = [
       <Badge
         className={cn(
           "bg-green-600 text-white border-green-500 whitespace-nowrap",
-          !row.getValue("chechkedIn") &&
-          "bg-red-600 text-white border-red-500"
-        )}>
+          !row.getValue("chechkedIn") && "bg-red-600 text-white border-red-500"
+        )}
+      >
         {row.getValue("chechkedIn") ? "Checked In" : "Not Checked"}
       </Badge>
     ),
@@ -173,17 +178,19 @@ const columns = [
     header: "Check-in Time",
     accessorKey: "checkedInTimestamp",
     cell: ({ row }) => {
-      const timestamp = row.getValue("checkedInTimestamp")
-      if (!timestamp) return <span className="text-gray-500">-</span>
-      
-      const date = new Date(timestamp)
+      const timestamp = row.getValue("checkedInTimestamp");
+      if (!timestamp) return <span className="text-gray-500">-</span>;
+
+      const date = new Date(timestamp);
       const formatted = date.toLocaleString("en-US", {
         month: "short",
         day: "numeric",
         hour: "2-digit",
-        minute: "2-digit"
-      })
-      return <span className="text-gray-300 whitespace-nowrap">{formatted}</span>
+        minute: "2-digit",
+      });
+      return (
+        <span className="text-gray-300 whitespace-nowrap">{formatted}</span>
+      );
     },
     size: 150,
   },
@@ -191,64 +198,88 @@ const columns = [
     header: "ID",
     accessorKey: "id",
     cell: ({ row }) => (
-      <div className="text-gray-400 font-mono text-sm whitespace-nowrap">#{row.getValue("id")}</div>
+      <div className="text-gray-400 font-mono text-sm whitespace-nowrap">
+        #{row.getValue("id")}
+      </div>
     ),
     size: 80,
   },
-]
+];
 
-export default function TasbleEventDetails({url}) {
-  const id = useId()
+export default function TasbleEventDetails({ url }) {
+  const { id } = useParams();
+  const[isLoading,setIsLoading]=useState(false);
   const { isSyncedWithBackend } = useAuth();
-  const [eventinfo,seteventinfo]=useState({});
-  const [columnFilters, setColumnFilters] = useState([])
-  const [columnVisibility, setColumnVisibility] = useState({})
+  const [eventinfo, seteventinfo] = useState({});
+  const [columnFilters, setColumnFilters] = useState([]);
+  const [columnVisibility, setColumnVisibility] = useState({});
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
-  })
-  const inputRef = useRef(null)
+  });
+  const inputRef = useRef(null);
 
   const [sorting, setSorting] = useState([
     {
       id: "name",
       desc: false,
     },
-  ])
+  ]);
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
 
-  
   useEffect(() => {
-    const fetchdata=async()=>{
-      console.log(url)
-        
-      if(!isSyncedWithBackend)
-        return
+    const fetchdata = async () => {
+      setIsLoading(true);
+      console.log(url);
 
-      try{
-        const response=await axios.get(url)
-        
-        setData(response.data.attendees || [])
+      if (!isSyncedWithBackend) return;
+
+      try {
+        const response = await axios.get(url);
+
+        setData(response.data.attendees || []);
         seteventinfo(response.data);
-        console.log("ttttttttttttt",response.data)
-      }
-      catch(error){
+        console.log("ttttttttttttt", response.data);
+        setIsLoading(false)
+      } catch (error) {
         console.log(error);
+          setIsLoading(false)
       }
-    }
+    };
 
     if (url) {
       fetchdata();
     }
-  }, [url,isSyncedWithBackend])
+  }, [url, isSyncedWithBackend]);
 
-  const handleDeleteRows = () => {
-    const selectedRows = table.getSelectedRowModel().rows
-    const updatedData = data.filter((item) => !selectedRows.some((row) => row.original.id === item.id))
-    setData(updatedData)
-    table.resetRowSelection()
-  }
+  const handleDeleteRows = async () => {
+    const selectedRows = table.getSelectedRowModel().rows;
+    const selectedData = selectedRows.map((row) => {
+      const { id, name, email } = row._valuesCache;
+      return { id, name, email };
+    });
+
+    console.log(selectedData, "delet");
+    console.log(
+      `https://mk25szk5-7093.inc1.devtunnels.ms/api/event/${id}/delete-attendee`
+    );
+    try {
+      const response = await axios.post(
+        `https://mk25szk5-7093.inc1.devtunnels.ms/api/event/${id}/delete-attendee`,
+        selectedData
+      );
+
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+    const updatedData = data.filter(
+      (item) => !selectedRows.some((row) => row.original.id === item.id)
+    );
+    setData(updatedData);
+    table.resetRowSelection();
+  };
 
   const table = useReactTable({
     data,
@@ -269,68 +300,67 @@ export default function TasbleEventDetails({url}) {
       columnFilters,
       columnVisibility,
     },
-  })
+  });
 
   // Get unique status values
   const uniqueStatusValues = useMemo(() => {
-    const statusColumn = table.getColumn("chechkedIn")
-    if (!statusColumn) return []
-    const values = Array.from(statusColumn.getFacetedUniqueValues().keys())
-    return values.map(val => val ? "Checked In" : "Not Checked").sort();
-  }, [table.getColumn("chechkedIn")?.getFacetedUniqueValues()])
+    const statusColumn = table.getColumn("chechkedIn");
+    if (!statusColumn) return [];
+    const values = Array.from(statusColumn.getFacetedUniqueValues().keys());
+    return values.map((val) => (val ? "Checked In" : "Not Checked")).sort();
+  }, [table.getColumn("chechkedIn")?.getFacetedUniqueValues()]);
 
   // Get counts for each status
   const statusCounts = useMemo(() => {
-    const statusColumn = table.getColumn("chechkedIn")
+    const statusColumn = table.getColumn("chechkedIn");
     if (!statusColumn) return new Map();
     const originalCounts = statusColumn.getFacetedUniqueValues();
     const readableCounts = new Map();
-    
+
     for (const [key, value] of originalCounts) {
       const readableKey = key ? "Checked In" : "Not Checked";
       readableCounts.set(readableKey, value);
     }
-    
+
     return readableCounts;
-  }, [table.getColumn("chechkedIn")?.getFacetedUniqueValues()])
+  }, [table.getColumn("chechkedIn")?.getFacetedUniqueValues()]);
 
   const selectedStatuses = useMemo(() => {
-    const filterValue = table.getColumn("chechkedIn")?.getFilterValue()
-    if (!filterValue) return []
-    return filterValue.map(val => val ? "Checked In" : "Not Checked")
-  }, [table.getColumn("chechkedIn")?.getFilterValue()])
+    const filterValue = table.getColumn("chechkedIn")?.getFilterValue();
+    if (!filterValue) return [];
+    return filterValue.map((val) => (val ? "Checked In" : "Not Checked"));
+  }, [table.getColumn("chechkedIn")?.getFilterValue()]);
 
   const handleStatusChange = (checked, value) => {
-    const filterValue = table.getColumn("chechkedIn")?.getFilterValue()
-    const newFilterValue = filterValue ? [...filterValue] : []
-    
-    const booleanValue = value === "Checked In"
+    const filterValue = table.getColumn("chechkedIn")?.getFilterValue();
+    const newFilterValue = filterValue ? [...filterValue] : [];
+
+    const booleanValue = value === "Checked In";
 
     if (checked) {
-      newFilterValue.push(booleanValue)
+      newFilterValue.push(booleanValue);
     } else {
-      const index = newFilterValue.indexOf(booleanValue)
+      const index = newFilterValue.indexOf(booleanValue);
       if (index > -1) {
-        newFilterValue.splice(index, 1)
+        newFilterValue.splice(index, 1);
       }
     }
 
     table
       .getColumn("chechkedIn")
-      ?.setFilterValue(newFilterValue.length ? newFilterValue : undefined)
-  }
+      ?.setFilterValue(newFilterValue.length ? newFilterValue : undefined);
+  };
 
   return (
     <div className="w-full p-4 md:p-6">
       <div className="space-y-6">
-        
         {/* Event Header */}
         <div className="text-center space-y-2 pb-4 border-b border-gray-700">
-          <ShinyText 
-            text={eventinfo.name || "Event Details"} 
-            disabled={false} 
-            speed={30} 
-            className='text-2xl md:text-3xl lg:text-4xl font-bold' 
+          <ShinyText
+            text={eventinfo.name || "Event Details"}
+            disabled={false}
+            speed={30}
+            className="text-2xl md:text-3xl lg:text-4xl font-bold"
           />
           {eventinfo.eventDate && (
             <p className="text-gray-400 text-lg">{eventinfo.eventDate}</p>
@@ -340,7 +370,6 @@ export default function TasbleEventDetails({url}) {
         {/* Filters - Responsive Layout */}
         <div className="space-y-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            
             {/* Search and Filter Controls */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
               {/* Search Input */}
@@ -352,15 +381,14 @@ export default function TasbleEventDetails({url}) {
                     "w-full ps-9 bg-gray-800 border-gray-700 text-gray-100 placeholder:text-gray-400 focus:border-blue-500",
                     Boolean(table.getColumn("name")?.getFilterValue()) && "pe-9"
                   )}
-                  value={
-                    (table.getColumn("name")?.getFilterValue() ?? "")
-                  }
+                  value={table.getColumn("name")?.getFilterValue() ?? ""}
                   onChange={(e) =>
                     table.getColumn("name")?.setFilterValue(e.target.value)
                   }
                   placeholder="Filter by name or email..."
                   type="text"
-                  aria-label="Filter by name or email" />
+                  aria-label="Filter by name or email"
+                />
                 <div className="text-gray-400 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3">
                   <ListFilterIcon size={16} aria-hidden="true" />
                 </div>
@@ -369,11 +397,12 @@ export default function TasbleEventDetails({url}) {
                     className="text-gray-400 hover:text-gray-200 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center"
                     aria-label="Clear filter"
                     onClick={() => {
-                      table.getColumn("name")?.setFilterValue("")
+                      table.getColumn("name")?.setFilterValue("");
                       if (inputRef.current) {
-                        inputRef.current.focus()
+                        inputRef.current.focus();
                       }
-                    }}>
+                    }}
+                  >
                     <CircleXIcon size={16} aria-hidden="true" />
                   </button>
                 )}
@@ -384,8 +413,15 @@ export default function TasbleEventDetails({url}) {
                 {/* Status Filter */}
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" className="bg-gray-800 cursor-pointer border-gray-700 text-gray-100 hover:bg-gray-700">
-                      <FilterIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
+                    <Button
+                      variant="outline"
+                      className="bg-gray-800 cursor-pointer border-gray-700 text-gray-100 hover:bg-gray-700"
+                    >
+                      <FilterIcon
+                        className="-ms-1 opacity-60"
+                        size={16}
+                        aria-hidden="true"
+                      />
                       <span className="hidden sm:inline">Status</span>
                       {selectedStatuses.length > 0 && (
                         <span className="bg-gray-700 text-gray-300 -me-1 inline-flex h-5 items-center rounded border border-gray-600 px-1 text-xs">
@@ -394,9 +430,14 @@ export default function TasbleEventDetails({url}) {
                       )}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto min-w-36 p-3 bg-gray-800 cursor-pointer border-gray-700" align="start">
+                  <PopoverContent
+                    className="w-auto min-w-36 p-3 bg-gray-800 cursor-pointer border-gray-700"
+                    align="start"
+                  >
                     <div className="space-y-3">
-                      <div className="text-gray-400 text-xs font-medium">Filters</div>
+                      <div className="text-gray-400 text-xs font-medium">
+                        Filters
+                      </div>
                       <div className="space-y-3">
                         {uniqueStatusValues.map((value, i) => (
                           <div key={value} className="flex items-center gap-2">
@@ -406,10 +447,12 @@ export default function TasbleEventDetails({url}) {
                               onCheckedChange={(checked) =>
                                 handleStatusChange(checked, value)
                               }
-                              className="border-gray-600 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600" />
+                              className="border-gray-600 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
+                            />
                             <Label
                               htmlFor={`${id}-${i}`}
-                              className="flex grow justify-between gap-2 font-normal text-gray-200">
+                              className="flex grow justify-between gap-2 font-normal text-gray-200"
+                            >
                               {value}
                               <span className="text-gray-400 text-xs">
                                 {statusCounts.get(value)}
@@ -425,13 +468,25 @@ export default function TasbleEventDetails({url}) {
                 {/* Column Visibility */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="bg-gray-800 border-gray-700 cursor-pointer text-gray-100 hover:bg-gray-700">
-                      <Columns3Icon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
+                    <Button
+                      variant="outline"
+                      className="bg-gray-800 border-gray-700 cursor-pointer text-gray-100 hover:bg-gray-700"
+                    >
+                      <Columns3Icon
+                        className="-ms-1 opacity-60"
+                        size={16}
+                        aria-hidden="true"
+                      />
                       <span className="hidden sm:inline">View</span>
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="bg-gray-800 border-gray-700">
-                    <DropdownMenuLabel className="text-gray-200">Toggle columns</DropdownMenuLabel>
+                  <DropdownMenuContent
+                    align="end"
+                    className="bg-gray-800 border-gray-700"
+                  >
+                    <DropdownMenuLabel className="text-gray-200">
+                      Toggle columns
+                    </DropdownMenuLabel>
                     {table
                       .getAllColumns()
                       .filter((column) => column.getCanHide())
@@ -443,7 +498,8 @@ export default function TasbleEventDetails({url}) {
                           onCheckedChange={(value) =>
                             column.toggleVisibility(!!value)
                           }
-                          onSelect={(event) => event.preventDefault()}>
+                          onSelect={(event) => event.preventDefault()}
+                        >
                           {column.id}
                         </DropdownMenuCheckboxItem>
                       ))}
@@ -456,8 +512,15 @@ export default function TasbleEventDetails({url}) {
             {table.getSelectedRowModel().rows.length > 0 && (
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button className="bg-red-600 cursor-pointer hover:bg-red-700 border-red-600 text-white" variant="outline">
-                    <TrashIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
+                  <Button
+                    className="bg-red-600 cursor-pointer hover:bg-red-700 border-red-600 text-white"
+                    variant="outline"
+                  >
+                    <TrashIcon
+                      className="-ms-1 opacity-60"
+                      size={16}
+                      aria-hidden="true"
+                    />
                     <span className="hidden sm:inline">Delete</span>
                     <span className="bg-red-700 text-red-100 -me-1 inline-flex h-5 items-center rounded border border-red-600 px-1 text-xs">
                       {table.getSelectedRowModel().rows.length}
@@ -467,16 +530,23 @@ export default function TasbleEventDetails({url}) {
                 <AlertDialogContent className="bg-gray-800 border-gray-700">
                   <div className="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4">
                     <div className="flex size-9 shrink-0 items-center justify-center rounded-full border cursor-pointer border-orange-500 bg-orange-500/20">
-                      <CircleAlertIcon className="opacity-80 text-orange-400" size={16} />
+                      <CircleAlertIcon
+                        className="opacity-80 text-orange-400"
+                        size={16}
+                      />
                     </div>
                     <AlertDialogHeader>
                       <AlertDialogTitle className="text-gray-100">
                         Are you absolutely sure?
                       </AlertDialogTitle>
                       <AlertDialogDescription className="text-gray-300">
-                        This action cannot be undone. This will permanently delete{" "}
-                        {table.getSelectedRowModel().rows.length} selected{" "}
-                        {table.getSelectedRowModel().rows.length === 1 ? "row" : "rows"}.
+                        This action cannot be undone. This will permanently
+                        delete {table.getSelectedRowModel().rows.length}{" "}
+                        selected{" "}
+                        {table.getSelectedRowModel().rows.length === 1
+                          ? "row"
+                          : "rows"}
+                        .
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                   </div>
@@ -484,7 +554,10 @@ export default function TasbleEventDetails({url}) {
                     <AlertDialogCancel className="bg-gray-700 border-gray-600 cursor-pointer text-gray-200 hover:bg-gray-600">
                       Cancel
                     </AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDeleteRows} className="bg-red-600 cursor-pointer hover:bg-red-700 text-white">
+                    <AlertDialogAction
+                      onClick={handleDeleteRows}
+                      className="bg-red-600 cursor-pointer hover:bg-red-700 text-white"
+                    >
                       Delete
                     </AlertDialogAction>
                   </AlertDialogFooter>
@@ -500,11 +573,15 @@ export default function TasbleEventDetails({url}) {
             <Table className="min-w-[800px]">
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id} className="hover:bg-transparent border-b border-gray-700">
+                  <TableRow
+                    key={headerGroup.id}
+                    className="hover:bg-transparent border-b border-gray-700"
+                  >
                     {headerGroup.headers.map((header) => (
                       <TableHead
                         key={header.id}
-                        className="h-11 text-gray-200 bg-gray-750 whitespace-nowrap">
+                        className="h-11 text-gray-200 bg-gray-750 whitespace-nowrap"
+                      >
                         {header.isPlaceholder ? null : header.column.getCanSort() ? (
                           <div
                             className="flex h-full cursor-pointer items-center justify-between gap-2 select-none hover:text-gray-100"
@@ -514,23 +591,36 @@ export default function TasbleEventDetails({url}) {
                                 header.column.getCanSort() &&
                                 (e.key === "Enter" || e.key === " ")
                               ) {
-                                e.preventDefault()
-                                header.column.getToggleSortingHandler()?.(e)
+                                e.preventDefault();
+                                header.column.getToggleSortingHandler()?.(e);
                               }
                             }}
-                            tabIndex={0}>
-                            {flexRender(header.column.columnDef.header, header.getContext())}
+                            tabIndex={0}
+                          >
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                             {{
                               asc: (
-                                <ChevronUpIcon className="shrink-0 opacity-60 text-blue-400" size={16} />
+                                <ChevronUpIcon
+                                  className="shrink-0 opacity-60 text-blue-400"
+                                  size={16}
+                                />
                               ),
                               desc: (
-                                <ChevronDownIcon className="shrink-0 opacity-60 text-blue-400" size={16} />
+                                <ChevronDownIcon
+                                  className="shrink-0 opacity-60 text-blue-400"
+                                  size={16}
+                                />
                               ),
                             }[header.column.getIsSorted()] ?? null}
                           </div>
                         ) : (
-                          flexRender(header.column.columnDef.header, header.getContext())
+                          flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )
                         )}
                       </TableHead>
                     ))}
@@ -538,27 +628,47 @@ export default function TasbleEventDetails({url}) {
                 ))}
               </TableHeader>
               <TableBody>
-                {table.getRowModel().rows?.length ? (
-                  table.getRowModel().rows.map((row) => (
-                    <TableRow key={row.id} 
-                      data-state={row.getIsSelected() && "selected"}
-                      className="border-b border-gray-700 hover:bg-gray-750 data-[state=selected]:bg-gray-700/50 text-gray-200">
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id} className="text-gray-200">
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))
-                ) : (
+                {isLoading ? (
                   <TableRow>
-                    <TableCell colSpan={columns.length} className="w-full h-32 text-gray-400">
+                    <TableCell
+                      colSpan={columns.length}
+                      className="w-full h-32 text-gray-400"
+                    >
                       <div className="flex items-center justify-center w-full h-full">
                         <LoaderOne />
                       </div>
                     </TableCell>
                   </TableRow>
+                ) : table.getRowModel().rows.length === 0 ? (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className="w-full h-32 text-gray-400 hover:bg-[#1E2939]"
+                    >
+                      <div className="w-full text-center text-2xl">
+                        no attendees
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  table.getRowModel().rows.map((row) => (
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && "selected"}
+                      className="border-b border-gray-700 hover:bg-gray-750 data-[state=selected]:bg-gray-700/50 text-gray-200"
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id} className="text-gray-200">
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
                 )}
+   
               </TableBody>
             </Table>
           </div>
@@ -574,14 +684,22 @@ export default function TasbleEventDetails({url}) {
             <Select
               value={table.getState().pagination.pageSize.toString()}
               onValueChange={(value) => {
-                table.setPageSize(Number(value))
-              }}>
-              <SelectTrigger id={id} className="w-20 bg-gray-800 cursor-pointer border-gray-700 text-gray-200">
+                table.setPageSize(Number(value));
+              }}
+            >
+              <SelectTrigger
+                id={id}
+                className="w-20 bg-gray-800 cursor-pointer border-gray-700 text-gray-200"
+              >
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-gray-800 cursor-pointer border-gray-700">
                 {[5, 10, 25, 50].map((pageSize) => (
-                  <SelectItem key={pageSize} value={pageSize.toString()} className="text-gray-200 focus:bg-gray-700">
+                  <SelectItem
+                    key={pageSize}
+                    value={pageSize.toString()}
+                    className="text-gray-200 focus:bg-gray-700"
+                  >
                     {pageSize}
                   </SelectItem>
                 ))}
@@ -592,15 +710,17 @@ export default function TasbleEventDetails({url}) {
           {/* Page info */}
           <div className="text-gray-400 text-sm whitespace-nowrap text-center">
             <span className="text-gray-200">
-              {table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}
+              {table.getState().pagination.pageIndex *
+                table.getState().pagination.pageSize +
+                1}
               -
               {Math.min(
-                (table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize,
+                (table.getState().pagination.pageIndex + 1) *
+                  table.getState().pagination.pageSize,
                 table.getRowCount()
               )}
             </span>{" "}
-            of{" "}
-            <span className="text-gray-200">{table.getRowCount()}</span>
+            of <span className="text-gray-200">{table.getRowCount()}</span>
           </div>
 
           {/* Pagination buttons */}
@@ -612,7 +732,8 @@ export default function TasbleEventDetails({url}) {
                   variant="outline"
                   className="bg-gray-800 border-gray-700 cursor-pointer text-gray-200 hover:bg-gray-700 disabled:opacity-50"
                   onClick={() => table.firstPage()}
-                  disabled={!table.getCanPreviousPage()}>
+                  disabled={!table.getCanPreviousPage()}
+                >
                   <ChevronFirstIcon size={16} />
                 </Button>
               </PaginationItem>
@@ -622,7 +743,8 @@ export default function TasbleEventDetails({url}) {
                   variant="outline"
                   className="bg-gray-800 border-gray-700 cursor-pointer text-gray-200 hover:bg-gray-700 disabled:opacity-50"
                   onClick={() => table.previousPage()}
-                  disabled={!table.getCanPreviousPage()}>
+                  disabled={!table.getCanPreviousPage()}
+                >
                   <ChevronLeftIcon size={16} />
                 </Button>
               </PaginationItem>
@@ -632,7 +754,8 @@ export default function TasbleEventDetails({url}) {
                   variant="outline"
                   className="bg-gray-800 cursor-pointer border-gray-700 text-gray-200 hover:bg-gray-700 disabled:opacity-50"
                   onClick={() => table.nextPage()}
-                  disabled={!table.getCanNextPage()}>
+                  disabled={!table.getCanNextPage()}
+                >
                   <ChevronRightIcon size={16} />
                 </Button>
               </PaginationItem>
@@ -642,7 +765,8 @@ export default function TasbleEventDetails({url}) {
                   variant="outline"
                   className="bg-gray-800 cursor-pointer border-gray-700 text-gray-200 hover:bg-gray-700 disabled:opacity-50"
                   onClick={() => table.lastPage()}
-                  disabled={!table.getCanNextPage()}>
+                  disabled={!table.getCanNextPage()}
+                >
                   <ChevronLastIcon size={16} />
                 </Button>
               </PaginationItem>
@@ -653,4 +777,3 @@ export default function TasbleEventDetails({url}) {
     </div>
   );
 }
-
