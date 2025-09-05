@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+
 import {
   flexRender,
   getCoreRowModel,
@@ -19,10 +20,8 @@ import {
   CircleAlertIcon,
   CircleXIcon,
   Columns3Icon,
-  EllipsisIcon,
   FilterIcon,
   ListFilterIcon,
-  PlusIcon,
   TrashIcon,
 } from "lucide-react";
 
@@ -45,15 +44,7 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -83,12 +74,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { auth } from "@/app/firebase/config";
+
 import axios from "axios";
 import ShinyText from "@/app/components/TextHomePAge";
 import { LoaderOne } from "./loding";
 import { useAuth } from "@/app/(dashboard)/context/authLogin";
 import { useParams } from "next/navigation";
+import AddAttendence from "@/app/components/Addattendence";
+import { useReloadTemplate } from "@/app/(dashboard)/context/reloadTempleat";
+import EditAttendees from "./editAttendence";
 
 // Custom filter function for multi-column searching
 const multiColumnFilterFn = (row, columnId, filterValue) => {
@@ -158,6 +152,22 @@ const columns = [
     ),
     size: 250,
   },
+
+  {
+    header: "Phone Number",
+    accessorKey: "phoneNumber",
+    cell: ({ row }) => (
+      <div
+        className="font-medium text-gray-100 min-w-0 truncate pr-2"
+        title={row.getValue("phoneNumber")}
+      >
+        {row.getValue("phoneNumber")}
+      </div>
+    ),
+    size: 200,
+    filterFn: multiColumnFilterFn,
+    enableHiding: false,
+  },
   {
     header: "Status",
     accessorKey: "chechkedIn",
@@ -169,6 +179,24 @@ const columns = [
         )}
       >
         {row.getValue("chechkedIn") ? "Checked In" : "Not Checked"}
+      </Badge>
+    ),
+    size: 130,
+    filterFn: statusFilterFn,
+  },
+
+  {
+    header: "invitationStatus",
+    accessorKey: "invitationStatus",
+    cell: ({ row }) => (
+      <Badge
+        className={cn(
+          "bg-green-600 text-white border-green-500 whitespace-nowrap",
+          row.getValue("invitationStatus") === "Not Sent" &&
+            "bg-yellow-600 text-white border-yellow-500"
+        )}
+      >
+        {row.getValue("invitationStatus")}
       </Badge>
     ),
     size: 130,
@@ -195,11 +223,17 @@ const columns = [
     size: 150,
   },
   {
-    header: "ID",
-    accessorKey: "id",
+    header: "",
+    accessorKey: "Edit",
     cell: ({ row }) => (
-      <div className="text-gray-400 font-mono text-sm whitespace-nowrap">
-        #{row.getValue("id")}
+      <div className="text-gray-400 text-center w-full cursor-pointer flex justify-center  text-xl whitespace-nowrap">
+        <EditAttendees
+          idAttendees={row.original.id}
+          name={row.original.name}
+          email={row.original.email}
+          phoneNumber={row.original.phoneNumber}
+          isSend={row.original.invitationStatus}
+        />
       </div>
     ),
     size: 80,
@@ -208,7 +242,8 @@ const columns = [
 
 export default function TasbleEventDetails({ url }) {
   const { id } = useParams();
-  const[isLoading,setIsLoading]=useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { reload, setReload } = useReloadTemplate();
   const { isSyncedWithBackend } = useAuth();
   const [eventinfo, seteventinfo] = useState({});
   const [columnFilters, setColumnFilters] = useState([]);
@@ -237,21 +272,21 @@ export default function TasbleEventDetails({ url }) {
 
       try {
         const response = await axios.get(url);
-
         setData(response.data.attendees || []);
         seteventinfo(response.data);
         console.log("ttttttttttttt", response.data);
-        setIsLoading(false)
+        setIsLoading(false);
+        setReload(false);
       } catch (error) {
         console.log(error);
-          setIsLoading(false)
+        setIsLoading(false);
       }
     };
 
     if (url) {
       fetchdata();
     }
-  }, [url, isSyncedWithBackend]);
+  }, [url, isSyncedWithBackend, reload]);
 
   const handleDeleteRows = async () => {
     const selectedRows = table.getSelectedRowModel().rows;
@@ -415,7 +450,7 @@ export default function TasbleEventDetails({ url }) {
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
-                      className="bg-gray-800 cursor-pointer border-gray-700 text-gray-100 hover:bg-gray-700"
+                      className="bg-gray-800 border-gray-700 cursor-pointer hover:text-gray-100 text-gray-100 hover:bg-gray-700"
                     >
                       <FilterIcon
                         className="-ms-1 opacity-60"
@@ -430,6 +465,7 @@ export default function TasbleEventDetails({ url }) {
                       )}
                     </Button>
                   </PopoverTrigger>
+
                   <PopoverContent
                     className="w-auto min-w-36 p-3 bg-gray-800 cursor-pointer border-gray-700"
                     align="start"
@@ -470,7 +506,7 @@ export default function TasbleEventDetails({ url }) {
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="outline"
-                      className="bg-gray-800 border-gray-700 cursor-pointer text-gray-100 hover:bg-gray-700"
+                      className="bg-gray-800 border-gray-700 cursor-pointer hover:text-gray-100 text-gray-100 hover:bg-gray-700"
                     >
                       <Columns3Icon
                         className="-ms-1 opacity-60"
@@ -505,6 +541,7 @@ export default function TasbleEventDetails({ url }) {
                       ))}
                   </DropdownMenuContent>
                 </DropdownMenu>
+                <AddAttendence id={id} />
               </div>
             </div>
 
@@ -668,7 +705,6 @@ export default function TasbleEventDetails({ url }) {
                     </TableRow>
                   ))
                 )}
-   
               </TableBody>
             </Table>
           </div>

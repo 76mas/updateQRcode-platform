@@ -113,12 +113,12 @@ const handleDelete = async () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
         </div>
-        <AlertDialogFooter>
-          <AlertDialogCancel className="bg-gray-900 border-gray-700 text-gray-200 hover:bg-gray-800 hover:text-gray-100">
+        <AlertDialogFooter> 
+          <AlertDialogCancel className="bg-gray-900 cursor-pointer border-gray-700 text-gray-200 hover:bg-gray-800 hover:text-gray-100">
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction 
-            className="text-white hover:opacity-90"
+            className="text-white cursor-pointer hover:opacity-90"
             style={{ backgroundColor: '#2F5BB8' }}
             onClick={handleDelete}
             disabled={loding}
@@ -190,11 +190,11 @@ const handleLeave = async () => {
           </AlertDialogHeader>
         </div>
         <AlertDialogFooter>
-          <AlertDialogCancel className="bg-gray-900 border-gray-700 text-gray-200 hover:bg-gray-800 hover:text-gray-100">
+          <AlertDialogCancel className="bg-gray-900 cursor-pointer border-gray-700 text-gray-200 hover:bg-gray-800 hover:text-gray-100">
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction 
-            className="text-white hover:opacity-90"
+            className="text-white cursor-pointer hover:opacity-90"
             style={{ backgroundColor: '#2F5BB8' }}
             onClick={handleLeave}
             disabled={loding}
@@ -284,32 +284,6 @@ export default function Actions({ id, date, name,role }) {
           </>
           
           :<>      <LeaveTemplate id={id}/></>}
-          {/* <DropdownMenuGroup>
-            <DropdownMenuItem className="text-gray-200 focus:bg-gray-800 flex justify-between hover:bg-gray-800 focus:text-gray-100 cursor-pointer"
-              onClick={handleEditClick}>
-              <span>Edit</span>
-                  <FaEdit />
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-
-    
-    
-               <DropdownMenuSeparator className="bg-gray-700" />
-                   <LeaveTemplate id={id}/>
-             
-             <DropdownMenuSeparator className="bg-gray-700" />
-          
-          <DropdownMenuGroup>
-            <DropdownMenuItem  className="text-gray-200 focus:bg-gray-800 hover:bg-gray-800 focus:text-gray-100 p-0"
-              onSelect={(e) => e.preventDefault()}>
-                 <Addcollaborator id={id}/>
-           </DropdownMenuItem>
-          </DropdownMenuGroup>
-         
-          <DropdownMenuSeparator className="bg-gray-700" />
-                <DeleteAlert id={id} /> */}
-
-
 
 
           </DropdownMenuContent>
@@ -349,9 +323,15 @@ function EditEventForm({ id, name, date, onClose }) {
   const [nameState, setNameState] = useState(name);
   const [dateState, setDateState] = useState(date);
 
+
+
   const handleEditEvent = async () => {
     setLoading(true);
+
+    console.log({ id, nameState, dateState });
+    
     try {
+
       const response = await axios.put(
         "https://mk25szk5-7093.inc1.devtunnels.ms/api/event/edit",
         {
@@ -406,7 +386,7 @@ function EditEventForm({ id, name, date, onClose }) {
       {/* Update Button */}
       <Button
         type="button"
-        className="w-full text-white hover:opacity-90"
+        className="w-full cursor-pointer text-white hover:opacity-90"
         style={{ backgroundColor: "#2F5BB8" }}
         onClick={handleEditEvent}
         disabled={loading}

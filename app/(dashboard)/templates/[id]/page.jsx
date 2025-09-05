@@ -1,7 +1,7 @@
-"use client"
-import { useEffect, useState } from "react"
-import { useParams } from "next/navigation"
-import axios from "axios"
+"use client";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import axios from "axios";
 import { auth } from "@/app/firebase/config";
 import TasbleEventDetails from "@/components/TasbleEventDetails";
 import TableCollaborators from "@/components/tableCollaborator";
@@ -16,10 +16,13 @@ import AlertErrorApi from "@/app/components/ErrorApi";
 
 const baseApiUrl = "https://mk25szk5-7093.inc1.devtunnels.ms";
 
-
-
-
-const CameraIcon = ({ fill = "currentColor", size, height, width, ...props }) => {
+const CameraIcon = ({
+  fill = "currentColor",
+  size,
+  height,
+  width,
+  ...props
+}) => {
   return (
     <svg
       fill="none"
@@ -45,22 +48,20 @@ const EnhancedCameraButton = () => {
 
   const handleClick = () => {
     console.log("Camera button clicked!");
- 
   };
-
-
-
 
   return (
     <div className="relative">
       {/* Background glow effect */}
-      <div 
+      <div
         className={`absolute inset-0 rounded-full transition-all duration-300 ${
-          isHovered ? 'bg-purple-400/20 scale-110 blur-xl' : 'bg-purple-500/10 scale-100 blur-lg'
+          isHovered
+            ? "bg-purple-400/20 scale-110 blur-xl"
+            : "bg-purple-500/10 scale-100 blur-lg"
         }`}
         style={{ backgroundColor: `#1F2937` }}
       />
-      
+
       {/* Main button */}
       <button
         className={`cursor-pointer
@@ -68,14 +69,14 @@ const EnhancedCameraButton = () => {
           flex items-center justify-center
           transition-all duration-200 ease-out
           backdrop-blur-sm shadow-2xl
-          ${isPressed ? 'scale-95' : isHovered ? 'scale-105' : 'scale-100'}
-          ${isHovered ? 'shadow-purple-500/30' : 'shadow-black/30'}
+          ${isPressed ? "scale-95" : isHovered ? "scale-105" : "scale-100"}
+          ${isHovered ? "shadow-purple-500/30" : "shadow-black/30"}
         `}
-        style={{ 
-          backgroundColor: '#1F2937',
-          boxShadow: isHovered 
-            ? '0 20px 40px rgba(60, 57, 122, 0.4), 0 8px 16px rgba(0, 0, 0, 0.2)' 
-            : '0 10px 25px rgba(0, 0, 0, 0.3)'
+        style={{
+          backgroundColor: "#1F2937",
+          boxShadow: isHovered
+            ? "0 20px 40px rgba(60, 57, 122, 0.4), 0 8px 16px rgba(0, 0, 0, 0.2)"
+            : "0 10px 25px rgba(0, 0, 0, 0.3)",
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -84,32 +85,28 @@ const EnhancedCameraButton = () => {
         onClick={handleClick}
         aria-label="Scan QR"
       >
-
         <div className="absolute inset-2 rounded-full bg-gradient-to-br from-white/10 to-transparent" />
-        
 
-        <CameraIcon 
-          size={28} 
-          fill="white" 
+        <CameraIcon
+          size={28}
+          fill="white"
           className={`
             transition-all duration-200
-            ${isPressed ? 'scale-90' : 'scale-100'}
+            ${isPressed ? "scale-90" : "scale-100"}
             drop-shadow-lg
           `}
         />
-        
-  
-        <div 
+
+        <div
           className={`
             absolute top-2 left-2 w-4 h-4 rounded-full
             bg-gradient-to-br from-white/40 to-transparent
             transition-all duration-300
-            ${isHovered ? 'opacity-100 scale-110' : 'opacity-60 scale-100'}
+            ${isHovered ? "opacity-100 scale-110" : "opacity-60 scale-100"}
           `}
         />
       </button>
-      
-  
+
       {isPressed && (
         <div className="absolute inset-0 rounded-full animate-ping border-2 border-white/30" />
       )}
@@ -117,118 +114,102 @@ const EnhancedCameraButton = () => {
   );
 };
 
-
-
-
-
-
 const EventDetails = () => {
+  const { id } = useParams();
+  const [isError, setIsError] = useState(false);
+  const [massegae, seMassegae] = useState("");
+  let [people, setPeople] = useState([{}]);
+  const { isSyncedWithBackend } = useAuth();
+  // const [imgUrl,setimageUrl]=useState("");
+  const [details, setdetails] = useState({});
 
-    const { id } = useParams()
-    const [isError,setIsError]=useState(false);  
-    const [massegae,seMassegae]=useState("");
-    let [people,setPeople]=useState([{}]);
-    const { isSyncedWithBackend } = useAuth();
-    // const [imgUrl,setimageUrl]=useState("");
-    const [details,setdetails]=useState({});
-    
   useEffect(() => {
-    const fetchdata=async()=>{
-   
-        
-      if(!isSyncedWithBackend)
-        return
+    const fetchdata = async () => {
+      if (!isSyncedWithBackend) return;
 
-      try{
-        const response=await axios.get(`${baseApiUrl}/api/event/${id}`)
-        
-   
-      
+      try {
+        const response = await axios.get(`${baseApiUrl}/api/event/${id}`);
+
         // console.log("ttttttttttttt",response.data.backgroundImageUri)
-        setdetails(response.data)
+        setdetails(response.data);
         // setimageUrl(response.data.backgroundImageUri)
-
-      }
-      catch(error){
+      } catch (error) {
         console.log(error);
       }
-    }
+    };
 
+    fetchdata();
+  }, [isSyncedWithBackend]);
 
-      fetchdata();
-   
-  }, [isSyncedWithBackend])
+  const [alrtLogin, setAlertLogin] = useState(false);
 
-
-const [alrtLogin,setAlertLogin]=useState(false);
-  
-useEffect(() => {
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-  
-       setAlertLogin(false);
+        setAlertLogin(false);
       } else {
-       setAlertLogin(true);
+        setAlertLogin(true);
       }
     });
 
     return () => unsubscribe();
   }, []);
 
-    return (
-        <div className="w-full min-h-screen">
-
-            {alrtLogin ?
+  return (
+    <div className="w-full min-h-screen">
+      {alrtLogin ? (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px]">
           <ErrorLginAlert typeError={"you must login"} />
         </div>
-      :<>    <NavBarDetails />
-{isError &&(    <AlertErrorApi setIsError={setIsError} massegae={massegae} isError={isError} />)}
-  
-            <div className="max-w-[95%]  mt-20 mx-auto py-10">
-           
-                <div className="flex flex-col gap-8">
-                    
-                     
-                    <div className="w-full flex flex-col  lg:flex-row md:flex-row justify-center h-[99%] items-center gap-9 lg:gap-2 md:gap-2 mt-10">
-                    
-                      
-                    
-                    
-                    <div className="flex flex-col mt-3 lg:mr-25 items-center justify-center gap-6">
-                         <DirectionAwareHover  imageUrl={details.backgroundImageUri}>
-                            <p className="font-bold text-xl">{details.name}</p>
-                            <p className="font-normal text-sm">{details.eventDate}</p>
-                        </DirectionAwareHover>
+      ) : (
+        <>
+          {" "}
+          <NavBarDetails />
+          {isError && (
+            <AlertErrorApi
+              setIsError={setIsError}
+              massegae={massegae}
+              isError={isError}
+            />
+          )}
+          <div className="max-w-[95%]  mt-20 mx-auto py-10">
+            <div className="flex flex-col gap-8">
+              <div className="w-full flex flex-col  lg:flex-row md:flex-row justify-center h-[99%] items-center gap-9 lg:gap-2 md:gap-2 mt-10">
+                <div className="flex flex-col mt-3 lg:mr-25 items-center justify-center gap-6">
+                  <DirectionAwareHover imageUrl={details.backgroundImageUri}>
+                    <p className="font-bold text-xl">{details.name}</p>
+                    <p className="font-normal text-sm">{details.eventDate}</p>
+                  </DirectionAwareHover>
 
-                              <div className="flex flex-row items-center justify-center mt-10 w-full">
-                                  <AnimatedTooltip items={people} />
-                              </div>
-                    </div>
-                     
-
-                      <TableCollaborators seMassegae={seMassegae} setIsError={setIsError} setPeople={setPeople} url={`${baseApiUrl}/api/event/${id}/getteam`} urlRole={`${baseApiUrl}/api/event/${id}`}/>
-
-
-                    </div>
-                    
-                    <div className="w-full">
-                        <TasbleEventDetails url={`${baseApiUrl}/api/event/${id}`} />
-                    </div>
-                    
-               
-                  
+                  <div className="flex flex-row items-center justify-center mt-10 w-full">
+                    <AnimatedTooltip items={people} />
+                  </div>
                 </div>
+
+                <TableCollaborators
+                  seMassegae={seMassegae}
+                  setIsError={setIsError}
+                  setPeople={setPeople}
+                  url={`${baseApiUrl}/api/event/${id}/getteam`}
+                  urlRole={`${baseApiUrl}/api/event/${id}`}
+                />
+              </div>
+
+              <div className="w-full">
+                <TasbleEventDetails url={`${baseApiUrl}/api/event/${id}`} />
+              </div>
             </div>
-
-             <Link href={`/webcam/${id}`} className="fixed cursor-pointer   lg:bottom-10 lg:right-20 bottom-8 right-10 z-50">
-                <EnhancedCameraButton />
-             </Link>
-</>}
-      
-
-        </div>
-    )
-}
+          </div>
+          <Link
+            href={`/webcam/${id}`}
+            className="fixed cursor-pointer   lg:bottom-10 lg:right-20 bottom-8 right-10 z-50"
+          >
+            <EnhancedCameraButton />
+          </Link>
+        </>
+      )}
+    </div>
+  );
+};
 
 export default EventDetails;

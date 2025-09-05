@@ -34,7 +34,6 @@ export default function ImageWithBoxes() {
     "Markazi Text",
     "Aref Ruqaa",
     "Scheherazade New",
-
     "IBM Plex Sans Arabic",
     "Noto Naskh Arabic",
     "Noto Kufi Arabic",
