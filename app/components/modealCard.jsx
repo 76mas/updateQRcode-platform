@@ -1,13 +1,10 @@
 "use client";
 import { FaEdit } from "react-icons/fa";
-import { MdDeleteForever,MdOutlineLogout } from "react-icons/md";
+import { MdDeleteForever, MdOutlineLogout } from "react-icons/md";
 
+import { MoreHorizontal } from "lucide-react";
 
-import {
-  MoreHorizontal,
-} from "lucide-react"
-
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 
 import {
   DropdownMenu,
@@ -21,9 +18,9 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 
-import { AlertCircle } from "lucide-react"
+import { AlertCircle } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -34,16 +31,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { useEffect ,useState} from "react";
+} from "@/components/ui/alert-dialog";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-import { useId } from "react"
-import { CreditCardIcon, WalletIcon } from "lucide-react"
-import { usePaymentInputs } from "react-payment-inputs"
+import { useId } from "react";
+import { CreditCardIcon, WalletIcon } from "lucide-react";
+import { usePaymentInputs } from "react-payment-inputs";
 import images from "react-payment-inputs/images";
 
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -51,54 +48,53 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import Addcollaborator from "@/components/addcollaborator";
 import { useReloadTemplate } from "../(dashboard)/context/reloadTempleat";
 
-
-function DeleteAlert({id}) {
-  const [loding,setloding]=useState(false);
+function DeleteAlert({ id }) {
+  const [loding, setloding] = useState(false);
   const [open, setOpen] = useState(false);
-    const {reload, setReload}=useReloadTemplate();
+  const { reload, setReload } = useReloadTemplate();
 
-const handleDelete = async () => {
-  setloding(true);
-  try {
-    const response = await axios.delete(`https://mk25szk5-7093.inc1.devtunnels.ms/api/event/delete?id=${encodeURIComponent(id)}`,
-   
-    );
-    console.log(response.data);
-    setReload(true);
-  
+  const handleDelete = async () => {
+    setloding(true);
+    try {
+      const response = await axios.delete(
+        `https://mk25szk5-7093.inc1.devtunnels.ms/api/event/delete?id=${encodeURIComponent(
+          id
+        )}`
+      );
+      console.log(response.data);
+      setReload(true);
+
       setOpen(false);
       setloding(false);
-   
-
-  } catch (error) {
-    console.error("error in delete",error);
-    setloding(false);
-  }
-};
+    } catch (error) {
+      console.error("error in delete", error);
+      setloding(false);
+    }
+  };
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <DropdownMenuItem  
+        <DropdownMenuItem
           className="text-red-400 focus:text-red-300 felx justify-between focus:bg-red-500/20 hover:bg-red-500/10 cursor-pointer"
           onSelect={(e) => e.preventDefault()}
         >
           <span>Delete</span>
-         <MdDeleteForever className="text-lg"/>
+          <MdDeleteForever className="text-lg" />
         </DropdownMenuItem>
       </AlertDialogTrigger>
-      
+
       <AlertDialogContent className="bg-gray-950 border-gray-800 text-gray-100">
         <div className="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4">
           <div
             className="flex size-9 shrink-0 items-center justify-center rounded-full border"
-            style={{ backgroundColor: '#2F5BB8', borderColor: '#2F5BB8' }}
+            style={{ backgroundColor: "#2F5BB8", borderColor: "#2F5BB8" }}
             aria-hidden="true"
           >
             <AlertCircle className="text-white opacity-90" size={16} />
@@ -108,74 +104,69 @@ const handleDelete = async () => {
               Are you sure?
             </AlertDialogTitle>
             <AlertDialogDescription className="text-gray-400">
-              Are you sure you want to delete your Event? All your data will
-              be removed.
+              Are you sure you want to delete your Event? All your data will be
+              removed.
             </AlertDialogDescription>
           </AlertDialogHeader>
         </div>
-        <AlertDialogFooter> 
+        <AlertDialogFooter>
           <AlertDialogCancel className="bg-gray-900 cursor-pointer border-gray-700 text-gray-200 hover:bg-gray-800 hover:text-gray-100">
             Cancel
           </AlertDialogCancel>
-          <AlertDialogAction 
+          <AlertDialogAction
             className="text-white cursor-pointer hover:opacity-90"
-            style={{ backgroundColor: '#2F5BB8' }}
+            style={{ backgroundColor: "#2F5BB8" }}
             onClick={handleDelete}
             disabled={loding}
           >
-         {loding?"Deleting...":"Delete"}
+            {loding ? "Deleting..." : "Delete"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
-
-      
     </AlertDialog>
-  )
+  );
 }
 
-
-
-
-function LeaveTemplate({id}) {
-  const [loding,setloding]=useState(false);
+function LeaveTemplate({ id }) {
+  const [loding, setloding] = useState(false);
   const [open, setOpen] = useState(false);
-  const {reload, setReload}=useReloadTemplate();
+  const { reload, setReload } = useReloadTemplate();
 
-const handleLeave = async () => {
-  setloding(true);
-  try {
-    const response = await axios.post(`https://mk25szk5-7093.inc1.devtunnels.ms/api/event/${id}/leave`);
+  const handleLeave = async () => {
+    setloding(true);
+    try {
+      const response = await axios.post(
+        `https://mk25szk5-7093.inc1.devtunnels.ms/api/event/${id}/leave`
+      );
 
-    console.log(response.data);
+      console.log(response.data);
       setReload(true);
       setOpen(false);
       setloding(false);
-   
-
-  } catch (error) {
-    console.error("error in delete",error);
-    setloding(false);
-  }
-};
+    } catch (error) {
+      console.error("error in delete", error);
+      setloding(false);
+    }
+  };
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <DropdownMenuItem  
-        className="text-red-200 focus:bg-gray-800 flex justify-between hover:bg-gray-800 focus:text-gray-100 cursor-pointer"
+        <DropdownMenuItem
+          className="text-red-200 focus:bg-gray-800 flex justify-between hover:bg-gray-800 focus:text-gray-100 cursor-pointer"
           onSelect={(e) => e.preventDefault()}
         >
           <span>Leave</span>
 
-         <MdOutlineLogout className="text-lg"/>
+          <MdOutlineLogout className="text-lg" />
         </DropdownMenuItem>
       </AlertDialogTrigger>
-      
+
       <AlertDialogContent className="bg-gray-950 border-gray-800 text-gray-100">
         <div className="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4">
           <div
             className="flex size-9 shrink-0 items-center justify-center rounded-full border"
-            style={{ backgroundColor: '#2F5BB8', borderColor: '#2F5BB8' }}
+            style={{ backgroundColor: "#2F5BB8", borderColor: "#2F5BB8" }}
             aria-hidden="true"
           >
             <AlertCircle className="text-white opacity-90" size={16} />
@@ -193,25 +184,21 @@ const handleLeave = async () => {
           <AlertDialogCancel className="bg-gray-900 cursor-pointer border-gray-700 text-gray-200 hover:bg-gray-800 hover:text-gray-100">
             Cancel
           </AlertDialogCancel>
-          <AlertDialogAction 
+          <AlertDialogAction
             className="text-white cursor-pointer hover:opacity-90"
-            style={{ backgroundColor: '#2F5BB8' }}
+            style={{ backgroundColor: "#2F5BB8" }}
             onClick={handleLeave}
             disabled={loding}
           >
-         {loding?"Leaving...":"Leave"}
+            {loding ? "Leaving..." : "Leave"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
-
-      
     </AlertDialog>
-  )
+  );
 }
 
-
-
-export default function Actions({ id, date, name,role }) {
+export default function Actions({ id, date, name, role }) {
   const [editDialogOpen, setEditDialogOpen] = useState(false);
 
   const handleEditClick = () => {
@@ -234,65 +221,62 @@ export default function Actions({ id, date, name,role }) {
           </div>
         </DropdownMenuTrigger>
 
-
-
-
         <DropdownMenuContent
           align="end"
           className="bg-gray-900 border-gray-700 text-gray-100"
         >
-
-
-             {role==="Owner"?<>   
-         <DropdownMenuGroup>
-            <DropdownMenuItem className="text-gray-200 focus:bg-gray-800 flex justify-between hover:bg-gray-800 focus:text-gray-100 cursor-pointer"
-              onClick={handleEditClick}>
-              <span>Edit</span>
+          {role === "Owner" ? (
+            <>
+              <DropdownMenuGroup>
+                <DropdownMenuItem
+                  className="text-gray-200 focus:bg-gray-800 flex justify-between hover:bg-gray-800 focus:text-gray-100 cursor-pointer"
+                  onClick={handleEditClick}
+                >
+                  <span>Edit</span>
                   <FaEdit />
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-          
-               <DropdownMenuSeparator className="bg-gray-700" />
-                   <LeaveTemplate id={id}/>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
 
-                     <DropdownMenuSeparator className="bg-gray-700" />
-          
-          <DropdownMenuGroup>
-            <DropdownMenuItem  className="text-gray-200 focus:bg-gray-800 hover:bg-gray-800 focus:text-gray-100 p-0"
-              onSelect={(e) => e.preventDefault()}>
-                 <Addcollaborator id={id}/>
-           </DropdownMenuItem>
-          </DropdownMenuGroup>
-             
+              <DropdownMenuSeparator className="bg-gray-700" />
+              <LeaveTemplate id={id} />
 
-                <DropdownMenuSeparator className="bg-gray-700" />
-                <DeleteAlert id={id} /> 
+              <DropdownMenuSeparator className="bg-gray-700" />
 
+              <DropdownMenuGroup>
+                <DropdownMenuItem
+                  className="text-gray-200 focus:bg-gray-800 hover:bg-gray-800 focus:text-gray-100 p-0"
+                  onSelect={(e) => e.preventDefault()}
+                >
+                  <Addcollaborator id={id} />
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
 
-          </>:role==="Editor"?<>
-                <DropdownMenuGroup>
-            <DropdownMenuItem className="text-gray-200 focus:bg-gray-800 flex justify-between hover:bg-gray-800 focus:text-gray-100 cursor-pointer"
-              onClick={handleEditClick}>
-              <span>Edit</span>
+              <DropdownMenuSeparator className="bg-gray-700" />
+              <DeleteAlert id={id} />
+            </>
+          ) : role === "Editor" ? (
+            <>
+              <DropdownMenuGroup>
+                <DropdownMenuItem
+                  className="text-gray-200 focus:bg-gray-800 flex justify-between hover:bg-gray-800 focus:text-gray-100 cursor-pointer"
+                  onClick={handleEditClick}
+                >
+                  <span>Edit</span>
                   <FaEdit />
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-          
-               <DropdownMenuSeparator className="bg-gray-700" />
-                   <LeaveTemplate id={id}/>
-          
-          </>
-          
-          :<>      <LeaveTemplate id={id}/></>}
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
 
-
-          </DropdownMenuContent>
-
-
-
-
-         </DropdownMenu>
-
+              <DropdownMenuSeparator className="bg-gray-700" />
+              <LeaveTemplate id={id} />
+            </>
+          ) : (
+            <>
+              {" "}
+              <LeaveTemplate id={id} />
+            </>
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
 
       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
         <DialogContent className="bg-gray-950 border-gray-800 text-gray-100">
@@ -304,10 +288,10 @@ export default function Actions({ id, date, name,role }) {
               Update your event details below.
             </DialogDescription>
           </DialogHeader>
-          <EditEventForm 
-            id={id} 
-            name={name} 
-            date={date} 
+          <EditEventForm
+            id={id}
+            name={name}
+            date={date}
             onClose={() => setEditDialogOpen(false)}
           />
         </DialogContent>
@@ -316,36 +300,29 @@ export default function Actions({ id, date, name,role }) {
   );
 }
 
-
 function EditEventForm({ id, name, date, onClose }) {
-    const {reload, setReload}=useReloadTemplate();
+  const { reload, setReload } = useReloadTemplate();
   const [loading, setLoading] = useState(false);
   const [nameState, setNameState] = useState(name);
   const [dateState, setDateState] = useState(date);
-
-
 
   const handleEditEvent = async () => {
     setLoading(true);
 
     console.log({ id, nameState, dateState });
-    
-    try {
 
+    try {
       const response = await axios.put(
-        "https://mk25szk5-7093.inc1.devtunnels.ms/api/event/edit",
+        `https://mk25szk5-7093.inc1.devtunnels.ms/api/event/${id}/edit`,
         {
-          id: id,
           eventName: nameState,
           date: dateState,
-        },
-     
+        }
       );
-      
-      onClose();
-     
-      setReload(true);
 
+      onClose();
+
+      setReload(true);
     } catch (error) {
       console.error("error in edit", error);
       setLoading(false);
@@ -396,5 +373,3 @@ function EditEventForm({ id, name, date, onClose }) {
     </div>
   );
 }
-
-
