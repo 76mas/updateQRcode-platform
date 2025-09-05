@@ -24,14 +24,13 @@ export default function EditAttendees({
   name,
   email,
   phoneNumber,
-  isSend
+  isSend,
 }) {
   const { id } = useParams();
   const { addItem, setAddItem } = useReloadTemplate();
   const { setReload } = useReloadTemplate();
   const [open, setOpen] = useState(false);
 
-  
   const [personInfo, setPersonInfo] = useState({
     id: idAttendees,
     name: name || "",
@@ -46,6 +45,19 @@ export default function EditAttendees({
   const [loding, setloding] = useState(false);
 
   const lastInputRef = useRef(null);
+
+  const senddata = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const phoneRegex = /^0\d{10}$/;
+
+    const isValid =
+      emailRegex.test(personInfo.email.trim()) &&
+      phoneRegex.test(personInfo.phoneNumber.trim()) &&
+      personInfo.name.trim() !== "";
+
+    return isValid;
+  };
 
   //   const senddata = () => {
   //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -130,10 +142,10 @@ export default function EditAttendees({
             </div>
             <DialogHeader>
               <DialogTitle className="text-left text-gray-100">
-                Invite team members
+                Edit Attendee Info
               </DialogTitle>
               <DialogDescription className="text-left text-gray-400">
-                Invite teammates to earn free components.
+                Update the attendee’s information and save the changes.
               </DialogDescription>
             </DialogHeader>
           </div>
@@ -141,7 +153,7 @@ export default function EditAttendees({
           <form className="space-y-5">
             <div className="space-y-4">
               <div className="*:not-first:mt-2">
-                <Label className="text-gray-200">Invite via email</Label>
+                <Label className="text-gray-200">Edit Attendee Info</Label>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center gap-1">
                     <Input
@@ -190,12 +202,12 @@ export default function EditAttendees({
               </div>
             </div>
             <Button
-              disabled={loding}
+              disabled={loding || !senddata()}
               onClick={handelAddInvitemember}
               type="button"
               className="w-full bg-blue-600 cursor-pointer hover:bg-blue-700 text-white"
             >
-              {loding ? "Sending..." : "Send invites"}
+              {loding ? "Saving..." : "Save Changes"}
             </Button>
           </form>
 

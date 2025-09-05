@@ -36,7 +36,13 @@ import { useParams } from "next/navigation";
 import { useAuth } from "@/app/(dashboard)/context/authLogin";
 import { useReloadTemplate } from "@/app/(dashboard)/context/reloadTempleat";
 
-function AlertDelete({ CheckeArry,setCheckArry, setDeleteItem, setIsError, seMassegae }) {
+function AlertDelete({
+  CheckeArry,
+  setCheckArry,
+  setDeleteItem,
+  setIsError,
+  seMassegae,
+}) {
   const { id } = useParams();
 
   const StaffDeleteIds = CheckeArry.filter((item) => item.status === true) // نخلي بس اللي status مالتهم true
@@ -50,7 +56,7 @@ function AlertDelete({ CheckeArry,setCheckArry, setDeleteItem, setIsError, seMas
         StaffDeleteIds
       );
       setDeleteItem(true);
-      setCheckArry([]); 
+      setCheckArry([]);
       console.log(respons.data);
     } catch (error) {
       console.error(error);
@@ -81,8 +87,8 @@ function AlertDelete({ CheckeArry,setCheckArry, setDeleteItem, setIsError, seMas
               Are you sure?
             </AlertDialogTitle>
             <AlertDialogDescription className="text-gray-400">
-              Are you sure you want to delete your Event? All your data will be
-              removed.
+              This will remove the staff member from the event management team.
+              Are you sure you want to continue?
             </AlertDialogDescription>
           </AlertDialogHeader>
         </div>
@@ -125,8 +131,9 @@ export default function TableCollaborators({
 
   const { id } = useParams();
 
-  const StaffEditIds = CheckeArry.filter((item) => item.status === true)
-    .map((item) => item.userId); 
+  const StaffEditIds = CheckeArry.filter((item) => item.status === true).map(
+    (item) => item.userId
+  );
 
   console.log(StaffEditIds);
   const baseApiUrl = "https://mk25szk5-7093.inc1.devtunnels.ms";
@@ -145,8 +152,6 @@ export default function TableCollaborators({
     console.log("data", updatedData);
 
     const sendEditRoles = async () => {
-
-
       try {
         const response = await axios.put(
           `${baseApiUrl}/api/event/${id}/editteam`,
@@ -155,7 +160,7 @@ export default function TableCollaborators({
         console.log(response.data);
         setSendRole(false);
         setCheckArry([]);
-        setOpen(false); 
+        setOpen(false);
       } catch (error) {
         console.log(error);
         seMassegae(error.response.data.detail);
@@ -221,7 +226,6 @@ export default function TableCollaborators({
     }
   }, [url, isSyncedWithBackend, sendRole, deleteitem, addItem]);
 
-
   const handleStatusChange = (status, userId) => {
     setCheckArry((prev) => {
       const exists = prev.find((item) => item.userId === userId);
@@ -244,15 +248,11 @@ export default function TableCollaborators({
     console.log("check", status, " ", userId);
   };
 
-
   useEffect(() => {
     if (CheckeArry.length === 0) {
       setOpenButtons(false);
     }
-    
   }, [CheckeArry]);
-
- 
 
   return (
     <div className="w-full lg:w-1/2 ">

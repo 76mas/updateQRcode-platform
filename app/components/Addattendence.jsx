@@ -21,7 +21,7 @@ import { useReloadTemplate } from "@/app/(dashboard)/context/reloadTempleat";
 
 export default function AddAttendence({ id }) {
   const { addItem, setAddItem } = useReloadTemplate();
-  const{setReload}=useReloadTemplate();
+  const { setReload } = useReloadTemplate();
   const [open, setOpen] = useState(false);
 
   console.log(id);
@@ -48,7 +48,7 @@ export default function AddAttendence({ id }) {
     return isValid;
   };
 
-console.log(personInfo);
+  console.log(personInfo);
 
   const handelAddInvitemember = async () => {
     setloding(true);
@@ -113,10 +113,10 @@ console.log(personInfo);
             </div>
             <DialogHeader>
               <DialogTitle className="text-left text-gray-100">
-                Invite team members
+                Add New Attendee
               </DialogTitle>
               <DialogDescription className="text-left text-gray-400">
-                Invite teammates to earn free components.
+                Fill in the details below to add a new attendee to the event.
               </DialogDescription>
             </DialogHeader>
           </div>
@@ -124,7 +124,7 @@ console.log(personInfo);
           <form className="space-y-5">
             <div className="space-y-4">
               <div className="*:not-first:mt-2">
-                <Label className="text-gray-200">Invite via email</Label>
+                <Label className="text-gray-200">Enter Basic info</Label>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center gap-1">
                     <Input
@@ -178,7 +178,7 @@ console.log(personInfo);
               type="button"
               className="w-full bg-blue-600 cursor-pointer hover:bg-blue-700 text-white"
             >
-              {loding ? "Sending..." : "Send invites"}
+              {loding ? "Adding..." : "Add Attendee"}
             </Button>
           </form>
 

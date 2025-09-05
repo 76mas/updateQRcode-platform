@@ -108,7 +108,7 @@ const handelAddInvitemember = async () => {
               boxShadow: 'none !important'
             }}
           >
-            <span className="block">Invite members</span>
+            <span className="block">Invite Members</span>
 
             <IoMdPersonAdd className="ml-3 text-[#fff] block" />
           </Button>
@@ -126,9 +126,9 @@ const handelAddInvitemember = async () => {
               <UserRoundPlusIcon className="opacity-80 text-gray-300" size={16} />
             </div>
             <DialogHeader>
-              <DialogTitle className="text-left text-gray-100">Invite team members</DialogTitle>
+              <DialogTitle className="text-left text-gray-100">Add Staff Member</DialogTitle>
               <DialogDescription className="text-left text-gray-400">
-                Invite teammates to earn free components.
+                Enter the details below to add a new staff member to the event management team.
               </DialogDescription>
             </DialogHeader>
           </div>
