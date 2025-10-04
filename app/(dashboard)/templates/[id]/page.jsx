@@ -14,7 +14,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import ErrorLginAlert from "@/components/ErrorLogin";
 import AlertErrorApi from "@/app/components/ErrorApi";
 
-const baseApiUrl = "https://mk25szk5-7093.inc1.devtunnels.ms";
+const baseApiUrl = "https://qrplatform-api.onrender.com";
 
 const CameraIcon = ({
   fill = "currentColor",

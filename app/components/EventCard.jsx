@@ -3,6 +3,9 @@ import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 import { FaCamera } from "react-icons/fa";
 import Actions from "./modealCard";
+import { t } from "i18next";
+import { useTranslation } from "react-i18next";
+import i18n from "../(dashboard)/i18n";
 
 
 
@@ -11,9 +14,9 @@ export default function WaveCard({ tags,role, title, description, buttonText , i
 const isValidImage = (url) => {
   if (!url) return false;
   const trimmed = url.trim().toLowerCase();
-  // استبعاد أي رابط placeholder معروف
+
   if (trimmed.includes("placehold.co")) return false;
-  // ممكن تضيف شروط أكثر إذا عندك روابط مزيفة ثانية
+
   return true;
 };
 
@@ -24,6 +27,7 @@ const finalImage = isValidImage(imagurl)
 
   useEffect(() => {
     const canvas = canvasRef.current;
+        i18n.changeLanguage(localStorage?.getItem("language") || "en");
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     let time = 0;
@@ -167,7 +171,7 @@ const finalImage = isValidImage(imagurl)
               
 
                 <Link href={`webcam/${id}`} className={`text-xs flex items-center ${role==="Check-In Staff"?"w-full px-15":"w-full ml-2 px-20"}} justify-center glass  py-1 rounded-full border border-[#2F5BB8]  shadow-2xl shadow-[#2F5BB8] text-white`}>
-                  <span className="flex mr-2">Scan</span>  <FaCamera   className="flex"/>
+                  <span className="flex mr-2">{t("templatesection.scan")}</span>  <FaCamera   className="flex"/>
                 </Link>
 
                

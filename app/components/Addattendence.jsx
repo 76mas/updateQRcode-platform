@@ -1,9 +1,8 @@
 "use client";
 import { IoMdPersonAdd } from "react-icons/io";
-import { useEffect, useId, useRef, useState } from "react";
-import { CheckIcon, CopyIcon, UserRoundPlusIcon } from "lucide-react";
-import { RiCloseLargeLine } from "react-icons/ri";
-import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
+import { UserRoundPlusIcon } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
+import { t } from "i18next";
 import axios from "axios";
 import { useReloadTemplate } from "@/app/(dashboard)/context/reloadTempleat";
 
@@ -52,7 +51,7 @@ export default function AddAttendence({ id }) {
 
   const handelAddInvitemember = async () => {
     setloding(true);
-    const baseApiUrl = "https://mk25szk5-7093.inc1.devtunnels.ms";
+const baseApiUrl = "https://qrplatform-api.onrender.com";
 
     try {
       const respons = await axios.post(
@@ -90,7 +89,9 @@ export default function AddAttendence({ id }) {
           >
             <div className="flex justify-center items-center w-full gap-2">
               <IoMdPersonAdd className="ml-3 text-[#fff] block" />
-              <span className="block">Add</span>
+              <span className="block">
+                {t("templatesection.addAttendee.button")}
+              </span>
             </div>
           </Button>
         </DialogTrigger>
@@ -113,10 +114,12 @@ export default function AddAttendence({ id }) {
             </div>
             <DialogHeader>
               <DialogTitle className="text-left text-gray-100">
-                Add New Attendee
+                {/* Add New Attendee */}
+                {t("templatesection.addAttendee.dialogTitle")}
               </DialogTitle>
               <DialogDescription className="text-left text-gray-400">
-                Fill in the details below to add a new attendee to the event.
+                {/* Fill in the details below to add a new attendee to the event. */}
+                {t("templatesection.addAttendee.dialogDescription")}
               </DialogDescription>
             </DialogHeader>
           </div>
@@ -124,12 +127,16 @@ export default function AddAttendence({ id }) {
           <form className="space-y-5">
             <div className="space-y-4">
               <div className="*:not-first:mt-2">
-                <Label className="text-gray-200">Enter Basic info</Label>
+                <Label className="text-gray-200">
+                  {t("templatesection.addAttendee.basicInfoLabel")}
+                </Label>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center gap-1">
                     <Input
                       id={`name`}
-                      placeholder="person name"
+                      placeholder={t(
+                        "templatesection.addAttendee.placeholderName"
+                      )}
                       required
                       type="text"
                       value={personInfo.name}
@@ -156,7 +163,9 @@ export default function AddAttendence({ id }) {
                   <div className="flex justify-between items-center gap-1">
                     <Input
                       id={`phoneNumber`}
-                      placeholder="phone number"
+                      placeholder={t(
+                        "templatesection.addAttendee.placeholderPhone"
+                      )}
                       required
                       type="text"
                       value={personInfo.phoneNumber}
@@ -178,7 +187,9 @@ export default function AddAttendence({ id }) {
               type="button"
               className="w-full bg-blue-600 cursor-pointer hover:bg-blue-700 text-white"
             >
-              {loding ? "Adding..." : "Add Attendee"}
+              {loding
+                ? t("templatesection.addAttendee.adding")
+                : t("templatesection.addAttendee.addAttendee")}
             </Button>
           </form>
 

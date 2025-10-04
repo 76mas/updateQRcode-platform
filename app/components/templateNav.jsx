@@ -5,17 +5,11 @@ import { auth } from "../firebase/config";
 import { signOut } from "firebase/auth";
 
 
-
 import {
-  BoltIcon,
-  BookOpenIcon,
   ChevronDownIcon,
-  Layers2Icon,
   LogOutIcon,
-  PinIcon,
-  UserPenIcon,
 } from "lucide-react"
-
+import { useTranslation } from 'react-i18next';
 import {
   Avatar,
   AvatarFallback,
@@ -25,15 +19,15 @@ import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import i18n from "../(dashboard)/i18n";
 
 function DropDownLogout({ url ,name,email}) {
-
+ 
 
   let fullname=name;
   let parts=fullname.split(" ");
@@ -45,12 +39,11 @@ function DropDownLogout({ url ,name,email}) {
   const handleLogout = () => {
   signOut(auth)
     .then(() => {
-      console.log("تم تسجيل الخروج بنجاح");
-   
+      
       window.location.href = "/";
     })
     .catch((error) => {
-      console.error("خطأ أثناء تسجيل الخروج:", error);
+      
     });
 };
 
@@ -93,7 +86,11 @@ export default function NavBar() {
 
   const [userinfo,setUserInfo]=useState({email:"",name:"",imgUrl:""});
 
+  const { t } = useTranslation();
 
+  useEffect(() => {
+    i18n.changeLanguage("ar")
+  }, []);
 
 
  useEffect(() => {
@@ -191,7 +188,7 @@ export default function NavBar() {
                       d="M6.5 4L6.303 4.5915C6.24777 4.75718 6.15472 4.90774 6.03123 5.03123C5.90774 5.15472 5.75718 5.24777 5.5915 5.303L5 5.5L5.5915 5.697C5.75718 5.75223 5.90774 5.84528 6.03123 5.96877C6.15472 6.09226 6.24777 6.24282 6.303 6.4085L6.5 7L6.697 6.4085C6.75223 6.24282 6.84528 6.09226 6.96877 5.96877C7.09226 5.84528 7.24282 5.75223 7.4085 5.697L8 5.5L7.4085 5.303C7.24282 5.24777 7.09226 5.15472 6.96877 5.03123C6.84528 4.90774 6.75223 4.75718 6.697 4.5915L6.5 4Z"
                     ></path>
                   </svg>
-                  <span className="text_button">Pro Template</span>
+                  <span className="text_button"> {t("navtemplate.protemplate")}</span>
                 </Link >
 
           </div>
@@ -210,7 +207,7 @@ export default function NavBar() {
   after:transition-opacity after:duration-300"
 
 >
-            Create New
+             {t("navtemplate.create")}
           </Link>
         </div>
       </div>
@@ -285,7 +282,7 @@ export default function NavBar() {
                   after:transition-opacity after:duration-300"
 
                 >
-                            Create New
+                            {t("navtemplate.create")}
           </Link>
 
              <div>
@@ -322,7 +319,7 @@ export default function NavBar() {
                       d="M6.5 4L6.303 4.5915C6.24777 4.75718 6.15472 4.90774 6.03123 5.03123C5.90774 5.15472 5.75718 5.24777 5.5915 5.303L5 5.5L5.5915 5.697C5.75718 5.75223 5.90774 5.84528 6.03123 5.96877C6.15472 6.09226 6.24777 6.24282 6.303 6.4085L6.5 7L6.697 6.4085C6.75223 6.24282 6.84528 6.09226 6.96877 5.96877C7.09226 5.84528 7.24282 5.75223 7.4085 5.697L8 5.5L7.4085 5.303C7.24282 5.24777 7.09226 5.15472 6.96877 5.03123C6.84528 4.90774 6.75223 4.75718 6.697 4.5915L6.5 4Z"
                     ></path>
                   </svg>
-                  <span className="text_button">Pro Template</span>
+                  <span className="text_button"> {t("navtemplate.protemplate")}</span>
                 </Link >
 
           </div>

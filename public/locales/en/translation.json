@@ -1,0 +1,277 @@
+{
+
+  "nav":{
+    "home": "Home",
+    "features": "Features",
+    "login": "Login",
+    "about": "About",
+    "contact": "Contact",
+    "template": "Your Templates"
+    },
+      "navtemplate":{
+        "create":"Create New",
+        "protemplate":"Pro Template"
+    },
+  "hero": {
+    "title": "Effortlessly Organize Your Event Invitations",
+    "subtitle": "Upload your names list and design, and let our platform generate professional, personalized invitations with QR codes for everyone!",
+    "getStarted": "Get Started"
+  },
+  "premium": {
+    "badge": "Premium",
+    "title": "Create Perfect Invitations in Minutes",
+    "desc1": "Smart tools to automate guest management, personalize designs, and generate QR-coded invitations effortlessly.",
+    "desc2": "Save time, impress your guests, and handle your event like a pro."
+  },
+  "steps": {
+    "step1": {
+      "title": "Event Info",
+      "designation": "Step 1",
+      "quote": "Enter the event name and date. This sets up the basic information for all invitations."
+    },
+    "step2": {
+      "title": "Upload Excel",
+      "designation": "Step 2",
+      "quote": "Upload the Excel file containing each guest's name and email. The platform will use this to personalize invitations."
+    },
+    "step3": {
+      "title": "Upload Design",
+      "designation": "Step 3",
+      "quote": "Upload the invitation or design image. Ensure it is high quality and matches the theme of your event."
+    },
+    "step4": {
+      "title": "Customize Layout",
+      "designation": "Step 4",
+      "quote": "Place boxes on the design to map each guest's name and QR code. Adjust the font color, size, and position. Save and submit the layout."
+    },
+    "step5": {
+      "title": "Download ZIP",
+      "designation": "Step 5",
+      "quote": "Download the final file (ZIP) containing all personalized invitations ready to share or print."
+    }
+  },
+  "features": {
+    "title": "Why Use Our Platform?",
+    "feature1": {
+      "title": "Auto Invitation Generation",
+      "desc": "Automatically create personalized invitations with guest names and QR codes."
+    },
+    "feature2": {
+      "title": "Excel Support",
+      "desc": "Upload your guest list as an Excel file – we handle the rest."
+    },
+    "feature3": {
+      "title": "Custom Placement",
+      "desc": "Manually choose where to place each name and QR code on your design."
+    },
+    "feature4": {
+      "title": "Smart QR Verification",
+      "desc": "Use any camera to scan and verify QR codes for accurate attendance."
+    }
+  },
+  "footer": {
+    "brand": "InviteMAS",
+    "desc": "Effortless invitation management. Personalized event invites with QR verification – all in one place.",
+    "linksTitle": "Links",
+    "links": {
+      "home": "Home",
+      "login": "Login",
+      "features": "Features",
+      "faq": "FAQ"
+    },
+    "contactTitle": "Contact",
+    "contact": {
+      "email": "Email: info@invitemas.app",
+      "support": "Support: support@invitemas.app"
+    },
+    "rights": "All rights reserved."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "item1": {
+      "title": "What is this platform used for?",
+      "content": "This platform helps you generate personalized event invitations with each guest’s name and a unique QR code for verification. It's perfect for weddings, conferences, or official events."
+    },
+    "item2": {
+      "title": "What file formats are supported?",
+      "content": "You can upload your guest list in Excel format (.xlsx) and your invitation design as a PNG or JPG image."
+    },
+    "item3": {
+      "title": "Can I choose where to place the guest name and QR code?",
+      "content": "Yes, during the setup process, you can draw boxes on your uploaded design to specify where each guest’s name and QR code should appear."
+    },
+    "item4": {
+      "title": "How does QR verification work during the event?",
+      "content": "The platform generates a unique QR for every guest. You can scan these QR codes using your device camera to check and verify attendance at the event."
+    },
+    "item5": {
+      "title": "Is there a limit on the number of invitations I can create?",
+      "content": "You can generate hundreds of invitations in one go. All the final images will be packed in a downloadable ZIP file for easy access."
+    }
+  },
+   "pricing": {
+    "upgrade": "Upgrade",
+    "title": "Unlock Advanced Invitation Tools",
+    "subtitle": "Powerful and automated features to help you create professional personalized invitations.",
+    "mainFeatures": {
+      "feature1": {
+        "title": "Upload your design",
+        "desc": "Upload your invitation design as PNG or JPG and get started quickly."
+      },
+      "feature2": {
+        "title": "Define name & QR positions",
+        "desc": "Easily click and select where the guest name and QR code should appear on your design."
+      },
+      "feature3": {
+        "title": "Connect Excel guest list",
+        "desc": "Upload an Excel file with guest names — we’ll handle the rest."
+      },
+      "feature4": {
+        "title": "Generate personalized invites",
+        "desc": "Each guest will receive their own invite with their name and unique QR code, ready to send."
+      }
+    },
+    "features": {
+      "title": "Features",
+      "subtitle": "Includes everything in the free plan, plus:",
+      "feature1": "Upload your custom invitation design",
+      "feature2": "Select where to place guest name and QR code",
+      "feature3": "Auto-generate personalized invites using Excel file",
+      "feature4": "Supports common Excel formats (.xlsx, .csv, etc)"
+    },
+    "plan": {
+      "basic": "Basic Plan",
+      "mostPopular": "Most Popular",
+      "desc": "Best suited for event organizers and teams.",
+      "perMonth": "per month"
+    },
+    "getStarted": "Get Started"
+  }
+,
+
+"templatesection": {
+    "person": "Person",
+    "manage": "Manage",
+    "scan": "Scan",
+    "action": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "invite": "Invite Member",
+      "leave": "Leave Team",
+      "deleting": "Deleting...",
+      "cancel": "Cancel",
+      "leaving": "Leaving...",
+      "UpdateEvent": "Update Event",
+      "updating": "Updating...",
+      "EventDate": "Event Date",
+      "EventName": "Event Name",
+      "EditEvent": "Edit Event",
+      "detailsbelow": "Update the event details below.",
+      "LeaveyourEvent?": "Are you sure you want to leave the event?",
+      "Areyousure?": "Are you sure?",
+      "deleteyourEvent?": "Are you sure you want to delete your event? All your data will be removed."
+    },
+    "alert": {
+      "DeleteTitle": "Are you sure?",
+      "DeleteDescription": "Are you sure you want to delete your event? All your data will be removed.",
+      "Cancel": "Cancel",
+      "Deleting": "Deleting...",
+      "LeaveTitle": "Are you sure?",
+      "LeaveDescription": "Are you sure you want to leave the event?",
+      "Leaving": "Leaving..."
+    },
+    "addCollaborator": {
+  "inviteButton": "Invite",
+  "dialogTitle": "Add Staff Member",
+  "dialogDescription": "Enter the details below to add a new staff member to the event management team.",
+  "inviteLabel": "Invite via email",
+  "placeholderEmail": "hi@yourcompany.com",
+  "addAnother": "+ Add another",
+  "sending": "Sending...",
+  "sendInvites": "Send invites"
+},
+"addAttendee": {
+  "button": "Add",
+  "dialogTitle": "Add New Attendee",
+  "dialogDescription": "Fill in the details below to add a new attendee to the event.",
+  "basicInfoLabel": "Enter Basic info",
+  "placeholderName": "person name",
+  "placeholderEmail": "hi@yourcompany.com",
+  "placeholderPhone": "phone number",
+  "adding": "Adding...",
+  "addAttendee": "Add Attendee"
+},
+ "editAttendee": {
+    "DialogTitle": "Edit Attendee Info",
+    "DialogDescription": "Update the attendee’s information and save the changes.",
+    "Label": "Edit Attendee Info",
+    "NamePlaceholder": "person name",
+    "EmailPlaceholder": "example@email.com",
+    "PhonePlaceholder": "phone number",
+    "Saving": "Saving...",
+    "SaveChanges": "Save Changes",
+    "Button": "Edit"
+  }
+
+
+
+
+    
+    },
+
+
+"webacm": {
+      "readQR": "Read QR",
+      "turnOnCamera": "Turn on camera",
+      "turnOffCamera": "Turn off camera",
+      "scannedEmail": "Scanned Email:",
+      "notScannedYet": "Not scanned yet",
+      "verifying": "Verifying...",
+      "attendanceRecorded": "✅ Attendance recorded: ",
+      "alreadyCheckedIn": "⚠️ Already checked in: ",
+      "notFound": "❌ This person is not in the guest list for this event.",
+      "unknownError": "❌ An unknown server error occurred.",
+      "cannotConnect": "❌ Cannot connect to the server.",
+      "registeredAttendees": "Registered attendees",
+      "mustLogin": "You must login"
+}
+,
+"detailes":{
+  "attendees": {
+    "title": "Attendees",
+    "view": "View",
+    "status": "Status",
+    "toggleColumns": "Toggle columns",
+    "filter": "Filter",
+    "searchPlaceholder": "Search attendee...",
+    "columns": {
+        "name": "Name",
+        "email": "Email",
+        "phoneNumber": "Phone Number",
+        "status": "Status",
+        "invitationStatus": "Invitation Status",
+        "checkInTime": "Check-in Time"
+      },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteConfirmTitle": "Are you sure?",
+      "deleteConfirmDescription": "Are you sure you want to delete this attendee? This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+     "alertTable": {
+        "description": "This action cannot be undone. This will permanently delete {{count}} selected {{item}}.",
+        "row": "row",
+        "rows": "rows"
+      },
+    "pagination": {
+      "rowsPerPage": "Rows per page",
+      "page": "Page",
+      "of": "of"
+    }
+  }
+}
+
+  
+}

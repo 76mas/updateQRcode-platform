@@ -1,49 +1,58 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Check, Upload, LayoutTemplate, QrCode, FileSpreadsheet } from 'lucide-react';
-import Link from 'next/link';
+import i18n from '@/app/(dashboard)/i18n';
+import { useTranslation } from 'react-i18next';
 
 const PricingCard = () => {
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    i18n.changeLanguage("ar");
+  }, [i18n]);
+  
   const features = [
-    'Upload your custom invitation design',
-    'Select where to place guest name and QR code',
-    'Auto-generate personalized invites using Excel file',
-    'Supports common Excel formats (.xlsx, .csv, etc)',
+    t("pricing.features.feature1"),
+    t("pricing.features.feature2"),
+    t("pricing.features.feature3"),
+    t("pricing.features.feature4"),
   ];
 
   const mainFeatures = [
     {
       icon: <Upload className="w-6 h-6" />,
-      title: "Upload your design",
-      description: "Upload your invitation design as PNG or JPG and get started quickly."
+      title: t("pricing.mainFeatures.feature1.title"),
+      description: t("pricing.mainFeatures.feature1.desc")
     },
     {
       icon: <LayoutTemplate className="w-6 h-6" />,
-      title: "Define name & QR positions",
-      description: "Easily click and select where the guest name and QR code should appear on your design."
+      title: t("pricing.mainFeatures.feature2.title"),
+      description: t("pricing.mainFeatures.feature2.desc")
     },
     {
       icon: <FileSpreadsheet className="w-6 h-6" />,
-      title: "Connect Excel guest list",
-      description: "Upload an Excel file with guest names — we’ll handle the rest."
+      title: t("pricing.mainFeatures.feature3.title"),
+      description: t("pricing.mainFeatures.feature3.desc")
     },
     {
       icon: <QrCode className="w-6 h-6" />,
-      title: "Generate personalized invites",
-      description: "Each guest will receive their own invite with their name and unique QR code, ready to send."
+      title: t("pricing.mainFeatures.feature4.title"),
+      description: t("pricing.mainFeatures.feature4.desc")
     }
   ];
 
   return (
-    <div className="min-h-screen text-white p-8">
+    <div 
+     dir={localStorage.getItem("language") === "ar" ? "rtl" : "ltr"}
+    className="min-h-screen text-white p-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-block bg-[#ffffff0c] backdrop-blur-3xl border border-gray-500 text-gray-300 px-3 py-1 rounded-full text-sm mb-6">
-            Upgrade
+            {t("pricing.upgrade")}
           </div>
-          <h1 className="text-5xl font-bold mb-6">Unlock Advanced Invitation Tools</h1>
+          <h1 className="text-5xl font-bold mb-6">{t("pricing.title")}</h1>
           <p className="text-gray-400 text-lg">
-            Powerful and automated features to help you create professional personalized invitations.
+            {t("pricing.subtitle")}
           </p>
         </div>
 
@@ -66,24 +75,24 @@ const PricingCard = () => {
           {/* Right side - Pricing Card */}
           <div className="bg-[#ffffff0a] backdrop-blur-3xl rounded-2xl p-8 border border-gray-500">
             <div className="flex items-center gap-3 mb-6">
-              <h2 className="text-2xl font-bold">Basic Plan</h2>
+              <h2 className="text-2xl font-bold">{t("pricing.plan.basic")}</h2>
               <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-               Must Popular
+                {t("pricing.plan.mostPopular")}
               </span>
             </div>
             
-            <p className="text-gray-400 mb-8">Best suited for event organizers and teams.</p>
+            <p className="text-gray-400 mb-8">{t("pricing.plan.desc")}</p>
             
             <div className="flex items-baseline gap-2 mb-8">
               <span className="text-5xl font-bold">$25</span>
-              <span className="text-gray-400">per month</span>
+              <span className="text-gray-400">{t("pricing.plan.perMonth")}</span>
             </div>
 
             <div className="mb-8">
               <h3 className="text-lg font-semibold mb-4 uppercase tracking-wide text-gray-300">
-                Features
+                {t("pricing.features.title")}
               </h3>
-              <p className="text-gray-400 mb-6">Includes everything in the free plan, plus:</p>
+              <p className="text-gray-400 mb-6">{t("pricing.features.subtitle")}</p>
               
               <div className="grid grid-cols-1 gap-3">
                 {features.map((feature, index) => (
@@ -97,14 +106,8 @@ const PricingCard = () => {
               </div>
             </div>
 
-            {/* <Link href={"/payservice"} className="block w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-center"
->
-              Get Started
-            </Link> */}
-
             <a href="https://wa.me/9647727488537" className="block w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-center">
-
-        Get Started
+              {t("pricing.getStarted")}
             </a>
           </div>
         </div>

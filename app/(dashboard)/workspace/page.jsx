@@ -70,7 +70,7 @@ export default function WorkeSpace() {
       }
 
       console.log("Sending data to the backend...");
-      const baseApiUrl = "https://mk25szk5-7093.inc1.devtunnels.ms";
+      const baseApiUrl = "https://qrplatform-api.onrender.com";
 
       try {
         const response = await axios.post(
@@ -78,6 +78,7 @@ export default function WorkeSpace() {
           formData,
           {
             headers: {
+              
               "Content-Type": "multipart/form-data",
             },
           }

@@ -10,7 +10,7 @@ import {
 import axios from "axios";
 
 const AuthContext = createContext();
-const baseApiUrl = "https://mk25szk5-7093.inc1.devtunnels.ms";
+const baseApiUrl = "https://qrplatform-api.onrender.com";
 
 export const AuthProvider = ({ children }) => {
   const [isSyncedWithBackend, setIsSyncedWithBackend] = useState(false);

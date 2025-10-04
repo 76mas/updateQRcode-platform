@@ -1,5 +1,7 @@
 "use client";
 import { IoMdPersonAdd } from "react-icons/io";
+import { t } from "i18next";
+// import t from "i18next";
 import { use, useRef, useState } from "react";
 import { UserRoundPlusIcon } from "lucide-react";
 import { FaUserEdit } from "react-icons/fa";
@@ -26,6 +28,11 @@ export default function EditAttendees({
   phoneNumber,
   isSend,
 }) {
+  // const { t } = useTranslation();
+  // useEffect(() => {
+  //   i18n.changeLanguage("ar");
+  // }, [i18n]);
+
   const { id } = useParams();
   const { addItem, setAddItem } = useReloadTemplate();
   const { setReload } = useReloadTemplate();
@@ -74,7 +81,7 @@ export default function EditAttendees({
 
   const handelAddInvitemember = async () => {
     setloding(true);
-    const baseApiUrl = "https://mk25szk5-7093.inc1.devtunnels.ms";
+ const baseApiUrl = "https://qrplatform-api.onrender.com";
 
     try {
       const respons = await axios.put(
@@ -119,7 +126,9 @@ export default function EditAttendees({
           >
             <div className="flex justify-center items-center w-full gap-2">
               <FaUserEdit className="ml-3 text-[#fff] block" />
-              <span className="block">Edit</span>
+              <span className="block">
+                {t("templatesection.editAttendee.Button")}
+              </span>
             </div>
           </Button>
         </DialogTrigger>
@@ -142,10 +151,11 @@ export default function EditAttendees({
             </div>
             <DialogHeader>
               <DialogTitle className="text-left text-gray-100">
-                Edit Attendee Info
+                {/* Edit Attendee Info */}
+                {t("templatesection.editAttendee.DialogTitle")}
               </DialogTitle>
               <DialogDescription className="text-left text-gray-400">
-                Update the attendee’s information and save the changes.
+                {t("templatesection.editAttendee.DialogDescription")}
               </DialogDescription>
             </DialogHeader>
           </div>
@@ -158,7 +168,9 @@ export default function EditAttendees({
                   <div className="flex justify-between items-center gap-1">
                     <Input
                       id={`nameww`}
-                      placeholder="person name"
+                      placeholder={t(
+                        "templatesection.editAttendee.NamePlaceholder"
+                      )}
                       required
                       type="text"
                       value={personInfo.name}
@@ -185,7 +197,9 @@ export default function EditAttendees({
                   <div className="flex justify-between items-center gap-1">
                     <Input
                       id={`phoneNumberww`}
-                      placeholder="phone number"
+                      placeholder={t(
+                        "templatesection.editAttendee.PhonePlaceholder"
+                      )}
                       required
                       type="text"
                       value={personInfo.phoneNumber}
@@ -207,7 +221,9 @@ export default function EditAttendees({
               type="button"
               className="w-full bg-blue-600 cursor-pointer hover:bg-blue-700 text-white"
             >
-              {loding ? "Saving..." : "Save Changes"}
+              {loding
+                ? t("templatesection.editAttendee.Saving")
+                : t("templatesection.editAttendee.SaveChanges")}
             </Button>
           </form>
 

@@ -11,22 +11,16 @@ import ErrorLginAlert from "@/components/ErrorLogin";
 
 export default function WorkeSpaceFree() {
   const [sendData, setSenddata] = useState(false);
-  const navigator=useRouter()
+  const navigator = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    eventName,
-    eventDate,
-    excelData,
-  
-  } = useEvent();
+  const { eventName, eventDate, excelData } = useEvent();
 
   useEffect(() => {
     if (!sendData) return;
 
     const sendForm = async () => {
-   
       if (isLoading) return;
       setIsLoading(true);
 
@@ -38,7 +32,6 @@ export default function WorkeSpaceFree() {
         return;
       }
 
- 
       const formData = new FormData();
       const eventDetails = {
         name: eventName,
@@ -46,79 +39,71 @@ export default function WorkeSpaceFree() {
         Location: null,
       };
 
-     
-
       formData.append("eventInfo", JSON.stringify(eventDetails));
-   
+
       formData.append("attendeeFile", excelData);
-  
 
       console.log("Sending data to the backend...");
-      const baseApiUrl = "https://mk25szk5-7093.inc1.devtunnels.ms"; 
-     
+      const baseApiUrl = "https://qrplatform-api.onrender.com";
 
       try {
-     
         const response = await axios.post(
           `${baseApiUrl}/api/event/create-free`,
-          formData
-          ,
+          formData,
           {
             headers: {
               "Content-Type": "multipart/form-data",
               // 'Authorization': `Bearer ${localStorage.getItem("token")}`
             },
-        
           }
         );
 
-
-
         console.log(response.data);
-        navigator.push("/templates")
-
+        navigator.push("/templates");
       } catch (error) {
         console.error("API Error:", error);
         if (error.response) {
-          alert(`Error: ${error.response.status} - ${error.response.statusText}`);
+          alert(
+            `Error: ${error.response.status} - ${error.response.statusText}`
+          );
         } else {
           alert("An error occurred. Check the console for details.");
         }
       } finally {
-  
         setIsLoading(false);
         setSenddata(false);
       }
     };
 
     sendForm();
-  }, [sendData]); 
+  }, [sendData]);
 
+  const [alrtLogin, setAlertLogin] = useState(false);
 
-const [alrtLogin,setAlertLogin]=useState(false);
-  
-useEffect(() => {
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-  
-       setAlertLogin(false);
+        setAlertLogin(false);
       } else {
-       setAlertLogin(true);
+        setAlertLogin(true);
       }
     });
 
     return () => unsubscribe();
   }, []);
 
-
   return (
     <div className="flex flex-col min-w-full min-h-screen">
-        {alrtLogin ?
+      {alrtLogin ? (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px]">
           <ErrorLginAlert typeError={"you must login"} />
         </div>
-      :<>      <Component setSenddata={setSenddata} isLoading={isLoading} /></>}
-
+      ) : (
+        <>
+          {" "}
+          <Component setSenddata={setSenddata} isLoading={isLoading} />
+        </>
+      )}
     </div>
   );
 }

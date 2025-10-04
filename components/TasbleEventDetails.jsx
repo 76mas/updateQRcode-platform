@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
-
+import { t } from "i18next";
 import {
   flexRender,
   getCoreRowModel,
@@ -125,7 +125,7 @@ const columns = [
     enableHiding: false,
   },
   {
-    header: "Name",
+    header: t("detailes.attendees.columns.name"),
     accessorKey: "name",
     cell: ({ row }) => (
       <div
@@ -140,7 +140,7 @@ const columns = [
     enableHiding: false,
   },
   {
-    header: "Email",
+    header: t("detailes.attendees.columns.email"),
     accessorKey: "email",
     cell: ({ row }) => (
       <div
@@ -154,7 +154,7 @@ const columns = [
   },
 
   {
-    header: "Phone Number",
+    header: t("detailes.attendees.columns.phoneNumber"),
     accessorKey: "phoneNumber",
     cell: ({ row }) => (
       <div
@@ -169,7 +169,7 @@ const columns = [
     enableHiding: false,
   },
   {
-    header: "Status",
+    header: t("detailes.attendees.columns.status"),
     accessorKey: "chechkedIn",
     cell: ({ row }) => (
       <Badge
@@ -186,7 +186,7 @@ const columns = [
   },
 
   {
-    header: "invitationStatus",
+    header: t("detailes.attendees.columns.invitationStatus"),
     accessorKey: "invitationStatus",
     cell: ({ row }) => (
       <Badge
@@ -203,7 +203,7 @@ const columns = [
     filterFn: statusFilterFn,
   },
   {
-    header: "Check-in Time",
+    header: t("detailes.attendees.columns.checkInTime"),
     accessorKey: "checkedInTimestamp",
     cell: ({ row }) => {
       const timestamp = row.getValue("checkedInTimestamp");
@@ -457,7 +457,7 @@ export default function TasbleEventDetails({ url }) {
                         size={16}
                         aria-hidden="true"
                       />
-                      <span className="hidden sm:inline">Status</span>
+                      <span className="hidden sm:inline">  {t("detailes.attendees.status")}</span>
                       {selectedStatuses.length > 0 && (
                         <span className="bg-gray-700 text-gray-300 -me-1 inline-flex h-5 items-center rounded border border-gray-600 px-1 text-xs">
                           {selectedStatuses.length}
@@ -472,7 +472,7 @@ export default function TasbleEventDetails({ url }) {
                   >
                     <div className="space-y-3">
                       <div className="text-gray-400 text-xs font-medium">
-                        Filters
+                         {t("detailes.attendees.filter")}
                       </div>
                       <div className="space-y-3">
                         {uniqueStatusValues.map((value, i) => (
@@ -513,7 +513,7 @@ export default function TasbleEventDetails({ url }) {
                         size={16}
                         aria-hidden="true"
                       />
-                      <span className="hidden sm:inline">View</span>
+                      <span className="hidden sm:inline"> {t("detailes.attendees.view")}</span>
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
@@ -521,7 +521,7 @@ export default function TasbleEventDetails({ url }) {
                     className="bg-gray-800 border-gray-700"
                   >
                     <DropdownMenuLabel className="text-gray-200">
-                      Toggle columns
+                     {t("detailes.attendees.toggleColumns")}
                     </DropdownMenuLabel>
                     {table
                       .getAllColumns()
@@ -558,13 +558,13 @@ export default function TasbleEventDetails({ url }) {
                       size={16}
                       aria-hidden="true"
                     />
-                    <span className="hidden sm:inline">Delete</span>
+                    <span className="hidden sm:inline">{t("detailes.attendees.actions.delete")}</span>
                     <span className="bg-red-700 text-red-100 -me-1 inline-flex h-5 items-center rounded border border-red-600 px-1 text-xs">
                       {table.getSelectedRowModel().rows.length}
                     </span>
                   </Button>
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-gray-800 border-gray-700">
+                <AlertDialogContent className="bg-gray-950 border-gray-900">
                   <div className="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4">
                     <div className="flex size-9 shrink-0 items-center justify-center rounded-full border cursor-pointer border-orange-500 bg-orange-500/20">
                       <CircleAlertIcon
@@ -574,28 +574,28 @@ export default function TasbleEventDetails({ url }) {
                     </div>
                     <AlertDialogHeader>
                       <AlertDialogTitle className="text-gray-100">
-                        Are you absolutely sure?
+                        {t("detailes.attendees.actions.deleteConfirmTitle")}
                       </AlertDialogTitle>
                       <AlertDialogDescription className="text-gray-300">
-                        This action cannot be undone. This will permanently
-                        delete {table.getSelectedRowModel().rows.length}{" "}
-                        selected{" "}
-                        {table.getSelectedRowModel().rows.length === 1
-                          ? "row"
-                          : "rows"}
-                        .
+                        {t("detailes.attendees.alertTable.description", {
+                          count: table.getSelectedRowModel().rows.length,
+                          item:
+                            table.getSelectedRowModel().rows.length === 1
+                              ? t("detailes.attendees.alertTable.row")
+                              : t("detailes.attendees.alertTable.rows"),
+                        })}
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                   </div>
                   <AlertDialogFooter>
                     <AlertDialogCancel className="bg-gray-700 border-gray-600 cursor-pointer text-gray-200 hover:bg-gray-600">
-                      Cancel
+                      {t("detailes.attendees.actions.cancel")}
                     </AlertDialogCancel>
                     <AlertDialogAction
                       onClick={handleDeleteRows}
                       className="bg-red-600 cursor-pointer hover:bg-red-700 text-white"
                     >
-                      Delete
+                      {t("detailes.attendees.actions.confirm")}
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
@@ -715,7 +715,8 @@ export default function TasbleEventDetails({ url }) {
           {/* Results per page */}
           <div className="flex items-center gap-3">
             <Label htmlFor={id} className="text-gray-300 whitespace-nowrap">
-              Rows per page
+              {/* Rows per page */}
+              {t("detailes.attendees.pagination.rowsPerPage")}
             </Label>
             <Select
               value={table.getState().pagination.pageSize.toString()}
@@ -756,7 +757,7 @@ export default function TasbleEventDetails({ url }) {
                 table.getRowCount()
               )}
             </span>{" "}
-            of <span className="text-gray-200">{table.getRowCount()}</span>
+            {t("detailes.attendees.pagination.of")} <span className="text-gray-200">{table.getRowCount()}</span>
           </div>
 
           {/* Pagination buttons */}

@@ -2,23 +2,24 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
-html{
+html {
   scroll-behavior: smooth;
 }
 
-  #inputcolor::-webkit-color-swatch {
-    border-radius: 10px;
-
-  }
-  #inputcolor::-moz-color-swatch {
-    border-radius: 50%;
-   
-  }
+#inputcolor::-webkit-color-swatch {
+  border-radius: 10px;
+}
+#inputcolor::-moz-color-swatch {
+  border-radius: 50%;
+}
 
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
 
+body {
+  font-family: "El Messiri";
+}
 
 @layer utilities {
   @keyframes slide-up {
@@ -36,8 +37,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     animation: slide-up 0.4s ease-out forwards;
   }
 }
-
-
 
 @theme inline {
   --color-background: var(--background);
@@ -78,7 +77,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
-::selection{
+::selection {
   background-color: #3c1c8f;
   color: white;
 }
@@ -98,15 +97,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   background-color: black; /* لون المسار */
 }
 
-
 /* انميسشن */
-  @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
 /* get started */
 
-/* From Uiverse.io by chase2k25 */ 
+/* From Uiverse.io by chase2k25 */
 /* Container to enable 3D perspective */
 .button-container {
   perspective: 1000px;
@@ -122,8 +125,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     rgba(255, 255, 255, 0.15),
     rgba(255, 255, 255, 0.05)
   ); /* Transparent glass gradient */
-  box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.4),
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4),
     /* Top highlight */ inset 0 -1px 2px rgba(0, 0, 0, 0.2),
     /* Bottom shadow */ 0 4px 8px rgba(0, 0, 0, 0.2),
     /* Drop shadow */ 0 0 20px rgba(255, 255, 255, 0.1); /* Subtle glow */
@@ -179,7 +181,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   z-index: 2;
   color: white;
   font-size: 18px;
-  font-family: Arial, sans-serif;
+
+  font-family: "El Messiri";
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Depth for text */
   display: block;
   line-height: 60px; /* Center vertically */
@@ -189,20 +192,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* Hover state: Straighten, lift, and enhance glow */
 .button:hover {
   /* transform: rotateX(0deg) translateZ(1px) scale(1); Lift and scale */
-  box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.4),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.2),
-    0 8px 16px rgba(0, 0, 0, 0.3),
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.3),
     /* Stronger shadow */ 0 0 40px rgba(255, 255, 255, 0.25); /* Brighter glow */
 }
 
 /* Active state: Depress and dim glow */
 .button:active {
   transform: rotateX(0deg) translateZ(-5px) scale(0.95); /* Push down */
-  box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.4),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.2),
-    0 2px 4px rgba(0, 0, 0, 0.2),
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.2),
     /* Reduced shadow */ 0 0 10px rgba(255, 255, 255, 0.1); /* Dimmed glow */
 }
 
@@ -210,17 +209,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 @keyframes pulse {
   0%,
   100% {
-    box-shadow:
-      inset 0 1px 2px rgba(255, 255, 255, 0.4),
-      inset 0 -1px 2px rgba(0, 0, 0, 0.2),
-      0 4px 8px rgba(0, 0, 0, 0.2),
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.2),
       0 0 20px rgba(255, 255, 255, 0.1);
   }
   50% {
-    box-shadow:
-      inset 0 1px 2px rgba(255, 255, 255, 0.4),
-      inset 0 -1px 2px rgba(0, 0, 0, 0.2),
-      0 4px 8px rgba(0, 0, 0, 0.2),
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.2),
       0 0 30px rgba(255, 255, 255, 0.2); /* Peak glow */
   }
 }
@@ -237,101 +232,100 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* get started */
 
 /* input image */
-  .input-div {
-    position: relative;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+.input-div {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0px 0px 100px #fff, inset 0px 0px 10px #fff,
+    0px 0px 5px rgb(255, 255, 255);
+  animation: flicker 2s linear infinite;
+}
+
+.icon {
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  animation: iconflicker 2s linear infinite;
+}
+
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer !important;
+}
+
+@keyframes flicker {
+  0% {
     border: 2px solid #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    box-shadow: 0px 0px 100px #fff , inset 0px 0px 10px #fff,0px 0px 5px rgb(255, 255, 255);
-    animation: flicker 2s linear infinite;
+    box-shadow: 0px 0px 100px #fff, inset 0px 0px 10px #fff,
+      0px 0px 5px rgb(255, #ffffff);
   }
 
-  .icon {
-    color: #fff;
-    font-size: 2rem;
-    cursor: pointer;
-    animation: iconflicker 2s linear infinite;
+  5% {
+    border: none;
+    box-shadow: none;
   }
 
-  .input {
-    position: absolute;
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer !important;
+  10% {
+    border: 2px solid #fff;
+    box-shadow: 0px 0px 100px #fff, inset 0px 0px 10px #fff, 0px 0px 5px #ffffff;
   }
 
-  @keyframes flicker {
-    0% {
-      border: 2px solid #fff;
-      box-shadow: 0px 0px 100px #fff , inset 0px 0px 10px #fff,0px 0px 5px rgb(255, #ffffff)
-    }
-
-    5% {
-      border: none;
-      box-shadow: none;
-    }
-
-    10% {
-      border: 2px solid #fff;
-      box-shadow: 0px 0px 100px #fff , inset 0px 0px 10px #fff,0px 0px 5px #ffffff;
-    }
-
-    25% {
-      border: none;
-      box-shadow: none;
-    }
-
-    30% {
-      border: 2px solid #fff;
-      box-shadow: 0px 0px 100px #fff , inset 0px 0px 10px #fff,0px 0px 5px #ffffff;
-    }
-
-    100% {
-      border: 2px solid #fff;
-      box-shadow: 0px 0px 100px #fff , inset 0px 0px 10px #fff,0px 0px 5px #ffffff;
-    }
+  25% {
+    border: none;
+    box-shadow: none;
   }
 
-  @keyframes iconflicker {
-    0% {
-      opacity: 1;
-    }
-
-    5% {
-      opacity: 0.2;
-    }
-
-    10% {
-      opacity: 1;
-    }
-
-    25% {
-      opacity: 0.2;
-    }
-
-    30% {
-      opacity: 1;
-    }
-
-    100% {
-      opacity: 1;
-    }
-
+  30% {
+    border: 2px solid #fff;
+    box-shadow: 0px 0px 100px #fff, inset 0px 0px 10px #fff, 0px 0px 5px #ffffff;
   }
 
-  /* input image */
+  100% {
+    border: 2px solid #fff;
+    box-shadow: 0px 0px 100px #fff, inset 0px 0px 10px #fff, 0px 0px 5px #ffffff;
+  }
+}
 
+@keyframes iconflicker {
+  0% {
+    opacity: 1;
+  }
 
+  5% {
+    opacity: 0.2;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 0.2;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* input image */
 
 /* excel file */
 
-/* From Uiverse.io by omar49511 */ 
+/* From Uiverse.io by omar49511 */
 .container-btn-file {
   display: flex;
   position: relative;
@@ -370,8 +364,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .container-btn-file:hover::before {
   width: 100%;
 }
-
-
 
 /* excel file */
 :root {
@@ -452,13 +444,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 
-
-
-
-
-
 /* loading */
-
 
 .loader {
   width: 112px;
@@ -694,42 +680,41 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 /* loading */
 
-
 /* eventcard */
-
 
 @import "tw-animate-css";
 
 @keyframes float {
-0%, 100% {
-  transform: translateY(0);
-}
-50% {
-  transform: translateY(-10px);
-}
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes dataStream {
-0% {
-  stroke-dashoffset: 20;
-}
-100% {
-  stroke-dashoffset: 0;
-}
+  0% {
+    stroke-dashoffset: 20;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes schemaPulse {
-0%, 100% {
-  transform: scale(1);
-  opacity: 0.8;
-}
-50% {
-  transform: scale(1.02);
-  opacity: 1;
-}
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
 }
 /* eventcard */
-
 
 /* pro bottun */
 
@@ -748,7 +733,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   transform-origin: center;
 
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   background-color: transparent;
 
   border: none;
@@ -787,7 +772,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   width: 100%;
   height: 100%;
-  background-color: #7b3bfcbf ;
+  background-color: #7b3bfcbf;
   background-image: radial-gradient(
       at 51% 89%,
       hsla(266, 45%, 74%, 1) 0px,
@@ -915,75 +900,70 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 /* pro button */
 
-
-
-
-
 /* pay button */
 
 .buttonpay {
-    line-height: 1;
-    text-decoration: none;
-    display: inline-flex;
-    border: none;
-    cursor: pointer;
-    align-items: center;
-    gap: 0.75rem;
-    background-color: var(--clr);
-    color: #fff;
-    border-radius: 10rem;
-    font-weight: 600;
-    padding: 0.75rem 1.5rem;
-    padding-left: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: background-color 0.3s;
-  }
+  line-height: 1;
+  text-decoration: none;
+  display: inline-flex;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: var(--clr);
+  color: #fff;
+  border-radius: 10rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  padding-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background-color 0.3s;
+}
 
-  .button__icon-wrapper {
-    flex-shrink: 0;
-    width: 25px;
-    height: 25px;
-    position: relative;
-    color: var(--clr);
-    background-color: #fff;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    overflow: hidden;
-  }
+.button__icon-wrapper {
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  position: relative;
+  color: var(--clr);
+  background-color: #fff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
 
-  .buttonpay:hover {
-    background-color: #000;
-  }
+.buttonpay:hover {
+  background-color: #000;
+}
 
-  .buttonpay:hover .button__icon-wrapper {
-    color: #000;
-  }
+.buttonpay:hover .button__icon-wrapper {
+  color: #000;
+}
 
-  .button__icon-svg--copy {
-    position: absolute;
-    transform: translate(-150%, 150%);
-  }
+.button__icon-svg--copy {
+  position: absolute;
+  transform: translate(-150%, 150%);
+}
 
-  .buttonpay:hover .button__icon-svg:first-child {
-    transition: transform 0.3s ease-in-out;
-    transform: translate(150%, -150%);
-  }
+.buttonpay:hover .button__icon-svg:first-child {
+  transition: transform 0.3s ease-in-out;
+  transform: translate(150%, -150%);
+}
 
-  .buttonpay:hover .button__icon-svg--copy {
-    transition: transform 0.3s ease-in-out 0.1s;
-    transform: translate(0);
-  }
+.buttonpay:hover .button__icon-svg--copy {
+  transition: transform 0.3s ease-in-out 0.1s;
+  transform: translate(0);
+}
 
-  /* pay button */
+/* pay button */
 
+/* shi */
 
-  /* shi */
-
-  .shiny-text {
-  color: #b5b5b5a4; 
+.shiny-text {
+  color: #b5b5b5a4;
   background: linear-gradient(
     120deg,
     rgba(255, 255, 255, 0) 40%,
@@ -1012,9 +992,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* shiny */
 
-
-
 /* checkbox */
-
 
 /* checke bodx */

@@ -89,13 +89,13 @@ export const ExplainSteps = ({ testimonials, autoplay = false }) => {
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
           >
-            <h3 className="text-2xl font-bold text-white dark:text-white">
+            <h3  dir={localStorage.getItem("language") === "ar" ? "rtl" : "ltr"} className="text-2xl font-bold text-white dark:text-white">
               {testimonials[active].name}
             </h3>
-            <p className="text-sm text-gray-500 dark:text-neutral-500">
+            <p   dir={localStorage.getItem("language") === "ar" ? "rtl" : "ltr"} className="text-sm text-gray-500 dark:text-neutral-500">
               {testimonials[active].designation}
             </p>
-            <motion.p className="mt-8 text-lg text-gray-300 dark:text-neutral-300">
+            <motion.p  dir={localStorage.getItem("language") === "ar" ? "rtl" : "ltr"} className="mt-8 text-lg text-gray-300 dark:text-neutral-300">
               {testimonials[active].quote.split(" ").map((word, index) => (
                 <motion.span
                   key={index}
@@ -114,18 +114,33 @@ export const ExplainSteps = ({ testimonials, autoplay = false }) => {
             </motion.p>
           </motion.div>
 
-          <div className="flex gap-4 pt-12 md:pt-0">
+          <div  dir={localStorage.getItem("language") === "ar" ? "rtl" : "ltr"} className="flex gap-4 pt-12 md:pt-0">
             <button
+
+            
               onClick={handlePrev}
               className="group/button flex  h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-[#f6f6f626]  backdrop-blur-3xl"
             >
-              <FaArrowLeftLong className="h-5 w-4  text-gray-300 transition-transform duration-300 group-hover/button:rotate-12 dark:text-neutral-400" />
+
+              {localStorage.getItem("language") === "ar" ? (
+                <FaArrowRightLong className="h-5 w-4  text-gray-300 transition-transform duration-300 group-hover/button:-rotate-12 dark:text-neutral-400" />
+              ) : (
+                <FaArrowLeftLong className="h-5 w-4  text-gray-300 transition-transform duration-300 group-hover/button:rotate-12 dark:text-neutral-400" />
+              )}
+              {/* <FaArrowLeftLong className="h-5 w-4  text-gray-300 transition-transform duration-300 group-hover/button:rotate-12 dark:text-neutral-400" /> */}
             </button>
             <button
               onClick={handleNext}
               className="group/button flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-[#f6f6f626] backdrop-blur-3xl"
             >
-              <FaArrowRightLong className="h-5 w-4  text-gray-300 transition-transform duration-300 group-hover/button:-rotate-12 dark:text-neutral-400" />
+
+              {localStorage.getItem("language") === "ar" ? (
+                <FaArrowLeftLong className="h-5 w-4  text-gray-300 transition-transform duration-300 group-hover/button:rotate-12 dark:text-neutral-400" />
+              ) : (
+                <FaArrowRightLong className="h-5 w-4  text-gray-300 transition-transform duration-300 group-hover/button:-rotate-12 dark:text-neutral-400" />
+              )}
+              
+              {/* <FaArrowRightLong className="h-5 w-4  text-gray-300 transition-transform duration-300 group-hover/button:-rotate-12 dark:text-neutral-400" /> */}
             </button>
           </div>
         </div>
