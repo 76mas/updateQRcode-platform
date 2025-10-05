@@ -290,18 +290,19 @@ export default function TasbleEventDetails({ url }) {
 
   const handleDeleteRows = async () => {
     const selectedRows = table.getSelectedRowModel().rows;
+    console.log("selectedRows", selectedRows);
+    const baseURL = "https://qrplatform-api.onrender.com";
+
     const selectedData = selectedRows.map((row) => {
-      const { id, name, email } = row._valuesCache;
+      let { id, name, email } = row.original;
       return { id, name, email };
     });
 
     console.log(selectedData, "delet");
-    console.log(
-      `https://mk25szk5-7093.inc1.devtunnels.ms/api/event/${id}/delete-attendee`
-    );
+    console.log(`${baseURL}/api/event/${id}/delete-attendee`);
     try {
       const response = await axios.post(
-        `https://mk25szk5-7093.inc1.devtunnels.ms/api/event/${id}/delete-attendee`,
+        `${baseURL}/api/event/${id}/delete-attendee`,
         selectedData
       );
 
@@ -457,7 +458,10 @@ export default function TasbleEventDetails({ url }) {
                         size={16}
                         aria-hidden="true"
                       />
-                      <span className="hidden sm:inline">  {t("detailes.attendees.status")}</span>
+                      <span className="hidden sm:inline">
+                        {" "}
+                        {t("detailes.attendees.status")}
+                      </span>
                       {selectedStatuses.length > 0 && (
                         <span className="bg-gray-700 text-gray-300 -me-1 inline-flex h-5 items-center rounded border border-gray-600 px-1 text-xs">
                           {selectedStatuses.length}
@@ -472,7 +476,7 @@ export default function TasbleEventDetails({ url }) {
                   >
                     <div className="space-y-3">
                       <div className="text-gray-400 text-xs font-medium">
-                         {t("detailes.attendees.filter")}
+                        {t("detailes.attendees.filter")}
                       </div>
                       <div className="space-y-3">
                         {uniqueStatusValues.map((value, i) => (
@@ -513,7 +517,10 @@ export default function TasbleEventDetails({ url }) {
                         size={16}
                         aria-hidden="true"
                       />
-                      <span className="hidden sm:inline"> {t("detailes.attendees.view")}</span>
+                      <span className="hidden sm:inline">
+                        {" "}
+                        {t("detailes.attendees.view")}
+                      </span>
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
@@ -521,7 +528,7 @@ export default function TasbleEventDetails({ url }) {
                     className="bg-gray-800 border-gray-700"
                   >
                     <DropdownMenuLabel className="text-gray-200">
-                     {t("detailes.attendees.toggleColumns")}
+                      {t("detailes.attendees.toggleColumns")}
                     </DropdownMenuLabel>
                     {table
                       .getAllColumns()
@@ -558,7 +565,9 @@ export default function TasbleEventDetails({ url }) {
                       size={16}
                       aria-hidden="true"
                     />
-                    <span className="hidden sm:inline">{t("detailes.attendees.actions.delete")}</span>
+                    <span className="hidden sm:inline">
+                      {t("detailes.attendees.actions.delete")}
+                    </span>
                     <span className="bg-red-700 text-red-100 -me-1 inline-flex h-5 items-center rounded border border-red-600 px-1 text-xs">
                       {table.getSelectedRowModel().rows.length}
                     </span>
@@ -757,7 +766,8 @@ export default function TasbleEventDetails({ url }) {
                 table.getRowCount()
               )}
             </span>{" "}
-            {t("detailes.attendees.pagination.of")} <span className="text-gray-200">{table.getRowCount()}</span>
+            {t("detailes.attendees.pagination.of")}{" "}
+            <span className="text-gray-200">{table.getRowCount()}</span>
           </div>
 
           {/* Pagination buttons */}

@@ -50,14 +50,12 @@ function DeleteAlert({ id }) {
   const [open, setOpen] = useState(false);
   const { setReload } = useReloadTemplate();
   const { t } = useTranslation();
-
+  console.log(id, "dddd", encodeURIComponent(id));
   const handleDelete = async () => {
     setloding(true);
     try {
       await axios.delete(
-        `https://qrplatform-api.onrender.com/api/event/delete?id=${encodeURIComponent(
-          id
-        )}`
+        `https://qrplatform-api.onrender.com/api/event/delete?id=${id}`
       );
       setReload(true);
       setOpen(false);
@@ -143,7 +141,7 @@ function LeaveTemplate({ id }) {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <DropdownMenuItem 
+        <DropdownMenuItem
           className="text-red-200 focus:bg-gray-800 w-full flex justify-between items-center px-2 hover:bg-gray-800 focus:text-gray-100 cursor-pointer"
           onSelect={(e) => e.preventDefault()}
         >
