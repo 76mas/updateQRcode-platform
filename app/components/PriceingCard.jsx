@@ -1,15 +1,28 @@
-import React, { useEffect } from 'react';
-import { Check, Upload, LayoutTemplate, QrCode, FileSpreadsheet } from 'lucide-react';
-import i18n from '@/app/(dashboard)/i18n';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect } from "react";
+import {
+  Check,
+  Upload,
+  LayoutTemplate,
+  QrCode,
+  FileSpreadsheet,
+} from "lucide-react";
+import i18n from "@/app/(dashboard)/i18n";
+import { useTranslation } from "react-i18next";
 
 const PricingCard = () => {
   const { t } = useTranslation();
 
+  const [language, setLanguage] = React.useState("en");
+
+  useEffect(() => {
+    setLanguage(localStorage?.getItem("language") || "en");
+    localStorage.setItem("language", language);
+  }, []);
+
   useEffect(() => {
     i18n.changeLanguage("ar");
   }, [i18n]);
-  
+
   const features = [
     t("pricing.features.feature1"),
     t("pricing.features.feature2"),
@@ -21,29 +34,30 @@ const PricingCard = () => {
     {
       icon: <Upload className="w-6 h-6" />,
       title: t("pricing.mainFeatures.feature1.title"),
-      description: t("pricing.mainFeatures.feature1.desc")
+      description: t("pricing.mainFeatures.feature1.desc"),
     },
     {
       icon: <LayoutTemplate className="w-6 h-6" />,
       title: t("pricing.mainFeatures.feature2.title"),
-      description: t("pricing.mainFeatures.feature2.desc")
+      description: t("pricing.mainFeatures.feature2.desc"),
     },
     {
       icon: <FileSpreadsheet className="w-6 h-6" />,
       title: t("pricing.mainFeatures.feature3.title"),
-      description: t("pricing.mainFeatures.feature3.desc")
+      description: t("pricing.mainFeatures.feature3.desc"),
     },
     {
       icon: <QrCode className="w-6 h-6" />,
       title: t("pricing.mainFeatures.feature4.title"),
-      description: t("pricing.mainFeatures.feature4.desc")
-    }
+      description: t("pricing.mainFeatures.feature4.desc"),
+    },
   ];
 
   return (
-    <div 
-     dir={localStorage.getItem("language") === "ar" ? "rtl" : "ltr"}
-    className="min-h-screen text-white p-8">
+    <div
+      dir={language === "ar" ? "rtl" : "ltr"}
+      className="min-h-screen text-white p-8"
+    >
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
@@ -51,9 +65,7 @@ const PricingCard = () => {
             {t("pricing.upgrade")}
           </div>
           <h1 className="text-5xl font-bold mb-6">{t("pricing.title")}</h1>
-          <p className="text-gray-400 text-lg">
-            {t("pricing.subtitle")}
-          </p>
+          <p className="text-gray-400 text-lg">{t("pricing.subtitle")}</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
@@ -65,8 +77,12 @@ const PricingCard = () => {
                   {feature.icon}
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{feature.description}</p>
+                  <h3 className="text-xl font-semibold mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-400 leading-relaxed">
+                    {feature.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -80,20 +96,24 @@ const PricingCard = () => {
                 {t("pricing.plan.mostPopular")}
               </span>
             </div>
-            
+
             <p className="text-gray-400 mb-8">{t("pricing.plan.desc")}</p>
-            
+
             <div className="flex items-baseline gap-2 mb-8">
               <span className="text-5xl font-bold">$25</span>
-              <span className="text-gray-400">{t("pricing.plan.perMonth")}</span>
+              <span className="text-gray-400">
+                {t("pricing.plan.perMonth")}
+              </span>
             </div>
 
             <div className="mb-8">
               <h3 className="text-lg font-semibold mb-4 uppercase tracking-wide text-gray-300">
                 {t("pricing.features.title")}
               </h3>
-              <p className="text-gray-400 mb-6">{t("pricing.features.subtitle")}</p>
-              
+              <p className="text-gray-400 mb-6">
+                {t("pricing.features.subtitle")}
+              </p>
+
               <div className="grid grid-cols-1 gap-3">
                 {features.map((feature, index) => (
                   <div key={index} className="flex items-center gap-3">
@@ -106,7 +126,10 @@ const PricingCard = () => {
               </div>
             </div>
 
-            <a href="https://wa.me/9647727488537" className="block w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-center">
+            <a
+              href="https://wa.me/9647727488537"
+              className="block w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-center"
+            >
               {t("pricing.getStarted")}
             </a>
           </div>

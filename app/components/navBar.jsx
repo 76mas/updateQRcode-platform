@@ -21,10 +21,9 @@ export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [token, setToken] = useState("");
   const [user, setUser] = useState(null);
-  const [language, setLanguage] = useState(
-    localStorage.getItem("language") || "en"
-  );
+  const [language, setLanguage] = useState("en");
   useEffect(() => {
+    setLanguage(localStorage?.getItem("language") || "en");
     localStorage.setItem("language", language);
   }, []);
 
@@ -102,7 +101,7 @@ export default function NavBar() {
     <>
       {/* Desktop NavBar */}
       <div
-        dir={localStorage.getItem("language") === "ar" ? "rtl" : "ltr"}
+        dir={language === "ar" ? "rtl" : "ltr"}
         className="hidden md:flex h-[60px] w-[70%] max-w-[1200px] fixed top-6 z-50 left-1/2 -translate-x-1/2 
                       px-6 rounded-full border border-gray-500/30 bg-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[10px]
                       text-white items-center justify-between transition-all duration-300 hover:shadow-[0_8px_40px_rgba(0,0,0,0.15)]"
@@ -187,7 +186,7 @@ export default function NavBar() {
           )}
 
           <Select
-            value={localStorage.getItem("language") || language}
+            value={language}
             onValueChange={(value) => {
               setLanguage(value);
               localStorage.setItem("language", value);
