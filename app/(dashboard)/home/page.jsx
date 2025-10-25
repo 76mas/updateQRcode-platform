@@ -17,20 +17,15 @@ import { useTranslation } from "react-i18next";
 import i18n from "@/app/(dashboard)/i18n";
 export default function Home() {
   const { t } = useTranslation();
- const [dir, setDir] = useState("ltr");
+  const [dir, setDir] = useState("ltr");
   useEffect(() => {
     i18n.changeLanguage(localStorage?.getItem("language") || "en");
   }, [i18n]);
 
- 
-
-useEffect(() => {
-  if (typeof window !== "undefined") {
+  useEffect(() => {
     const lang = localStorage.getItem("language") || "en";
     setDir(lang === "ar" ? "rtl" : "ltr");
-  }
-}, []);
-
+  }, []);
 
   const steps = [
     {
@@ -85,10 +80,9 @@ useEffect(() => {
     <div className="min-h-screen flex flex-col items-center text-white pt-[60px] px-4">
       <NavBar />
 
-    
       <section
         id="home"
-         dir={dir}
+        dir={dir}
         className="w-full relative flex items-center justify-center"
       >
         {alrtLogin && (
@@ -139,9 +133,7 @@ useEffect(() => {
       {/* سكسشن ال  home */}
 
       {/* سكسشن الاسئلة */}
-      <section
-       dir={dir}
-      id="questions" className="w-full py-20 px-4 ">
+      <section dir={dir} id="questions" className="w-full py-20 px-4 ">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 mb-20 items-start">
           <div>
             <Component />
@@ -188,7 +180,10 @@ useEffect(() => {
       {/* سكسشن الاسئلة */}
 
       <section className="w-full py-20 px-4 ">
-        <div  dir={dir} className="text-center w-full flex flex-col justify-center items-center mb-16">
+        <div
+          dir={dir}
+          className="text-center w-full flex flex-col justify-center items-center mb-16"
+        >
           <div className="block bg-[#ffffff0c] w-fit backdrop-blur-3xl border border-gray-500 text-gray-300 px-3 py-1 rounded-full text-sm mb-6">
             {t("premium.badge")}
           </div>
@@ -208,9 +203,7 @@ useEffect(() => {
       </section>
 
       {/* سكشن ال features */}
-      <section 
-       dir={dir}
-      id="features" className="w-full py-20 px-4 ">
+      <section dir={dir} id="features" className="w-full py-20 px-4 ">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-12">{t("features.title")}</h2>
 
@@ -246,7 +239,7 @@ useEffect(() => {
 
       <footer
         id="contact"
-         dir={dir}
+        dir={dir}
         className="w-full border-t border-gray-700  text-gray-300 py-12 px-4"
       >
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
