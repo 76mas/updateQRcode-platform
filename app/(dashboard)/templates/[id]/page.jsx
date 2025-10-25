@@ -46,10 +46,6 @@ const EnhancedCameraButton = () => {
   const [isPressed, setIsPressed] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleClick = () => {
-    console.log("Camera button clicked!");
-  };
-
   return (
     <div className="relative">
       {/* Background glow effect */}
@@ -82,7 +78,6 @@ const EnhancedCameraButton = () => {
         onMouseLeave={() => setIsHovered(false)}
         onMouseDown={() => setIsPressed(true)}
         onMouseUp={() => setIsPressed(false)}
-        onClick={handleClick}
         aria-label="Scan QR"
       >
         <div className="absolute inset-2 rounded-full bg-gradient-to-br from-white/10 to-transparent" />

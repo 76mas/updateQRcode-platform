@@ -45,7 +45,7 @@ export default function TemplatesPage() {
     };
 
     fetchTemplates();
-    i18n.changeLanguage(localStorage?.getItem("language") || "en");
+    i18n.changeLanguage("en");
   }, [isSyncedWithBackend, reload]);
 
   const [alrtLogin, setAlertLogin] = useState(false);
@@ -101,7 +101,9 @@ export default function TemplatesPage() {
                     {template.map((item) => (
                       <WaveCard
                         key={item.id}
-                        tags={`${item.attendeeCount} ${t("templatesection.person")}`}
+                        tags={`${item.attendeeCount} ${t(
+                          "templatesection.person"
+                        )}`}
                         title={item.name}
                         description={item.eventDate}
                         buttonText={t("templatesection.manage")}

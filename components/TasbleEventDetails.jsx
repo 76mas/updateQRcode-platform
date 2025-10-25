@@ -274,7 +274,7 @@ export default function TasbleEventDetails({ url }) {
         const response = await axios.get(url);
         setData(response.data.attendees || []);
         seteventinfo(response.data);
-        console.log("ttttttttttttt", response.data);
+        
         setIsLoading(false);
         setReload(false);
       } catch (error) {
